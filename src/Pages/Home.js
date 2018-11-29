@@ -9,6 +9,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+import Common from "../styles/Common";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,7 @@ class Home extends Component {
   }
   render() {
     return (
-      <ScrollView style={[styles.container, { backgroundColor: "#f5f5f5" }]}>
+      <ScrollView style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
         <ImageBackground
           style={styles.header}
           source={require("../Resources/images/iheader.png")}
@@ -154,20 +155,14 @@ class Home extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    position: "relative",
-    flex: 1
-  },
   header: {
     width: Fit(750),
     height: Fit(350),
     position: "relative"
   },
   fline: {
-    paddingTop: Fit(10),
+    paddingTop: Fit(10) + STATUSBAR_HEIGHT,
     paddingLeft: Fit(30),
     paddingRight: Fit(30),
     justifyContent: "space-between",
