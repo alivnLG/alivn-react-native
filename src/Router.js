@@ -25,10 +25,10 @@ import { Theme } from "teaset";
 
 import TabIcon from "./Component/TabIcon";
 
-import Test1 from "./Pages/Test1";
-import Test2 from "./Pages/Test2";
-import Test3 from "./Pages/Test3";
-import Test4 from "./Pages/Test4";
+import Home from "./Pages/Home";
+import Trade from "./Pages/Trade";
+import Wallet from "./Pages/Wallet";
+import My from "./Pages/My";
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
@@ -40,7 +40,6 @@ const reducerCreate = params => {
 const getSceneStyle = () => ({
   backgroundColor: Theme.backgroundColor
 });
-debugger
 const onBackPress = () => {
   console.log(Actions.state);
   if (Actions.state.index !== 0) {
@@ -75,34 +74,42 @@ const router = (...props) => (
         >
           <Stack
             hideNavBar
-            key="Test1"
-            title={"识兔"}
-            image={Images.ShiTu}
-            selectedImage={Images.ShiTu}
+            key="Home"
+            title={"首页"}
+            image={Images.Home}
+            selectedImage={Images.aHome}
           >
-            <Scene component={Test1} key="Test1_key" />
+            <Scene component={Home} key="home" />
           </Stack>
           <Stack
             hideNavBar
-            key="Test2"
-            title="百思"
-            image={Images.Gank}
-            selectedImage={Images.Gank}
+            key="Trade"
+            title="交易"
+            image={Images.Trade}
+            selectedImage={Images.aTrade}
           >
-            <Scene component={Test2} key="Test2_key" />
+            <Scene component={Trade} key="trade" />
           </Stack>
           <Stack
             hideNavBar
-            key="Test3"
+            key="钱包"
             title="我的"
-            image={Images.Main}
-            selectedImage={Images.Main}
+            image={Images.Wallet}
+            selectedImage={Images.aWallet}
           >
-            <Scene component={Test3} key="Test3_key" />
+            <Scene component={Wallet} key="wallet" />
+          </Stack>
+          <Stack
+            hideNavBar
+            key="My"
+            title="我的"
+            image={Images.My}
+            selectedImage={Images.aMy}
+          >
+            <Scene component={My} key="my" />
           </Stack>
         </Tabs>
         {/*// 推荐把需要的路由放在<Tabs/>后面，跳转的时候通过key，Actions.Test3_key*/}
-        <Scene component={Test3} key="Test3_key" />
       </Stack>
     </Modal>
   </Router>

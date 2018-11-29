@@ -13,11 +13,8 @@ import { Images } from "../Resources/index";
 // 统一管理项目中的路由
 import { Actions } from "react-native-router-flux";
 
-// 处理安卓，iOS字体不同的类，使用方法 fontSize:FONT_SIZE(20)
-import FontSize from "./FontSize";
-// 处理安卓，iOS宽高的区别，使用方法 width:px2dp(20)
-import { px2dp } from "./Tool";
-
+// 处理安卓，iOS适配
+import Fit from "./Fit";
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
 
@@ -41,10 +38,8 @@ global.SCREEN_HEIGHT = height;
 global.PixelRatio = PixelRatio.get();
 // 最小线宽
 global.pixel = 1 / PixelRatio;
-// 适配字体
-global.FONT_SIZE = FontSize;
 // 屏幕适配
-global.px2dp = px2dp;
+global.Fit = Fit;
 // 主题
 global.Theme = Theme;
 // 网络请求
