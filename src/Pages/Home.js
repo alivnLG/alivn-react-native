@@ -15,6 +15,9 @@ class Home extends Component {
     super(props);
     this.state = {};
   }
+  _getData() {
+    const Data = Axios('/accounts');
+  }
   render() {
     return (
       <ScrollView style={[Common.container, { backgroundColor: "#f5f5f5" }]}>

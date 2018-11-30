@@ -19,7 +19,8 @@ import {Fit, STATUSBAR_HEIGHT} from "./Fit";
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
 
-// 基于react-native-fetch-blob封装的网络请求
+// 基于axios网络请求
+import Axios from "./Axios";
 
 // 配置文件，可以放网络请求等
 import Config from "./Config";
@@ -46,7 +47,7 @@ global.STATUSBAR_HEIGHT = STATUSBAR_HEIGHT;
 // 主题
 global.Theme = Theme;
 // 网络请求
-
+global.Axios = Axios;
 // 配置
 global.Config = Config;
 // router跳转的方法
