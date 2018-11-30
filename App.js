@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, StatusBar, View } from "react-native";
-
 import Router from "./src/Router";
 
 export default class App extends Component<{}> {
@@ -12,6 +11,7 @@ export default class App extends Component<{}> {
           backgroundColor="rgba(0,0,0,0)"
           barStyle="dark-content"
         />
+        <Modal />
         <Router />
       </View>
     );

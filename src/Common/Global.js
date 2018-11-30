@@ -14,10 +14,13 @@ import { Images } from "../Resources/index";
 import { Actions } from "react-native-router-flux";
 
 // 处理安卓，iOS适配
-import {Fit, STATUSBAR_HEIGHT} from "./Fit";
+import { Fit, STATUSBAR_HEIGHT } from "./Fit";
 
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
+
+// modal弹框
+import Modal from "./Modal";
 
 // 基于axios网络请求
 import Axios from "./Axios";
@@ -27,15 +30,15 @@ import Config from "./Config";
 
 // 通过系统API获得屏幕宽高
 let { height, width } = Dimensions.get("window");
-
-// 系统是iOS
-global.iOS = Platform.OS === "ios";
-// 系统是安卓
-global.Android = Platform.OS === "android";
 // 获取屏幕宽度
 global.SCREEN_WIDTH = width;
 // 获取屏幕高度
 global.SCREEN_HEIGHT = height;
+// 系统是iOS
+global.iOS = Platform.OS === "ios";
+// 系统是安卓
+global.Android = Platform.OS === "android";
+
 // 获取屏幕分辨率
 global.PixelRatio = PixelRatio.get();
 // 最小线宽
@@ -48,6 +51,8 @@ global.STATUSBAR_HEIGHT = STATUSBAR_HEIGHT;
 global.Theme = Theme;
 // 网络请求
 global.Axios = Axios;
+//弹窗
+global.Modal = Modal;
 // 配置
 global.Config = Config;
 // router跳转的方法

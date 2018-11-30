@@ -14,6 +14,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this._getData();
   }
   _getData() {
     const Data = Axios('/accounts');
