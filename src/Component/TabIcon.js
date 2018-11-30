@@ -1,7 +1,3 @@
-/**
- * Created by Rabbit 下午6:40
- */
-
 import React from "react";
 import { Text, View, Image } from "react-native";
 
@@ -13,19 +9,17 @@ const TabIcon = props => {
         source={!props.focused ? props.image : props.selectedImage}
         style={[
           {
-            height: Fit(27),
-            width: Fit(27),
-            marginTop: 5,
-            tintColor: props.tintColor
+            height: Fit(42),
+            width: Fit(42)
           }
         ]}
       />
       <Text
         style={{
-          paddingLeft: Fit(5),
           color: props.tintColor,
           marginTop: Fit(6),
-          fontSize: Fit(10)
+          fontSize: Fit(22),
+          textAlign: "center"
         }}
       >
         {props.title}

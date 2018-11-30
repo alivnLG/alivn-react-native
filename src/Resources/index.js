@@ -3,5 +3,5 @@
  */
 
 // 用来存放需要用的到图片
-import Images from "./Images";
+import Images from "../Resources/Images";
 export { Images };

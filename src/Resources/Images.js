@@ -4,7 +4,7 @@
 
 // 统一管理项目中的图片，格式按照下面的来
 const Images = {
-  Home: require("./images/home_active.png"),
+  Home: require("./images/home.png"),
   aHome: require("./images/home_active.png"),
   Trade: require("./images/trade.png"),
   aTrade: require("./images/trade_active.png"),

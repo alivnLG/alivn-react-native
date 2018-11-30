@@ -69,8 +69,8 @@ const router = (...props) => (
           tabBarPosition={"bottom"} // tabbar在顶部还是底部，iOS默认顶部，安卓默认顶部
           activeBackgroundColor="white" // 选中tabbar的背景色
           inactiveBackgroundColor="white" // 未选中tabbar的背景色
-          activeTintColor="#4ECBFC" // 选中tabbar图标的颜色
-          inactiveTintColor="#aaa" // 未选中tabbar图标的颜色
+          activeTintColor="#044236" // 选中tabbar图标的颜色
+          inactiveTintColor="#7A7B7D" // 未选中tabbar图标的颜色
         >
           <Stack
             hideNavBar
@@ -120,6 +120,6 @@ export default router;
 const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: "#eee",
-    height: 49
+    height: Fit(98)
   }
 });
