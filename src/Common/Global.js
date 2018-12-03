@@ -38,7 +38,6 @@ global.SCREEN_HEIGHT = height;
 global.iOS = Platform.OS === "ios";
 // 系统是安卓
 global.Android = Platform.OS === "android";
-
 // 获取屏幕分辨率
 global.PixelRatio = PixelRatio.get();
 // 最小线宽
@@ -59,8 +58,6 @@ global.Config = Config;
 global.Actions = Actions;
 // 图片加载
 global.Images = Images;
-// 弹出框
-global.Alert = Alert;
 // 存储
 global.AsyncStorage = AsyncStorage;
 // 弹框Toast

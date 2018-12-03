@@ -29,6 +29,7 @@ import Home from "./Pages/Home";
 import Trade from "./Pages/Trade";
 import Wallet from "./Pages/Wallet";
 import My from "./Pages/My";
+import Login from "./Pages/Login";
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
@@ -110,6 +111,7 @@ const router = (...props) => (
           </Stack>
         </Tabs>
         {/*// 推荐把需要的路由放在<Tabs/>后面，跳转的时候通过key，Actions.Test3_key*/}
+        <Scene component={Login} key="login" />
       </Stack>
     </Modal>
   </Router>

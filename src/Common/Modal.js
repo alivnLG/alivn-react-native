@@ -41,7 +41,15 @@ class Modal extends Component {
   }
   //弹窗动画完成
   _onAnimationEnd() {
-    setTimeout(() => {
+    if (this.state.animation == "fadeIn") {
+      setTimeout(() => {
+        this.setState({
+          animation: "fadeOut",
+          icon: "",
+          msg: ""
+        });
+      }, 1500);
+    } else {
       if (this._onClose) {
         this._onClose();
       }
@@ -49,7 +57,7 @@ class Modal extends Component {
         animation: "fadeOut",
         zIndex: -1
       });
-    }, 1500);
+    }
   }
   render() {
     if (this.state.type == "alert") {
@@ -57,7 +65,6 @@ class Modal extends Component {
         <Animatable.View
           style={[styles.mask, { zIndex: this.state.zIndex }]}
           animation={this.state.animation}
-          onAnimationEnd={this._onAnimationEnd.bind(this)}
         >
           <Animatable.View
             style={[styles.showView, { zIndex: this.state.zIndex }]}
