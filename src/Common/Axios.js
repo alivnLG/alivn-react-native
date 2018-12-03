@@ -9,6 +9,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import axios from "axios";
+import { Actions } from "react-native-router-flux";
 //配置
 axios.defaults.baseURL = "http://192.168.0.30/team/";
 axios.defaults.timeout = 0;
@@ -34,7 +35,14 @@ axios.interceptors.response.use(
   },
   error => {
     if (error.response.status == "403") {
-      <Modal type="Alert" msg="权限不足！" />;
+      Modal.alert({
+        type: "alert",
+        icon: "fail",
+        msg: "权限不足！",
+        onClose: () => {
+          Actions.login();
+        }
+      });
     }
     // Do something with response error
     return Promise.reject(error);
