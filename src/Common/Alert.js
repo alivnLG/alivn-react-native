@@ -12,11 +12,12 @@ import {
 import { Fit } from "./Fit";
 import * as Animatable from "react-native-animatable";
 let self = null;
-class Modal extends Component {
+class Alert extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      animation: "fadeIn",
+      animationMask: "fadeIn",
+      animation: "fadeInUp",
       type: "",
       icon: "",
       msg: "",
@@ -41,10 +42,11 @@ class Modal extends Component {
   }
   //弹窗动画完成
   _onAnimationEnd() {
-    if (this.state.animation == "fadeIn") {
+    if (this.state.animation == "fadeInUp") {
       setTimeout(() => {
         this.setState({
-          animation: "fadeOut",
+          animationMask: "fadeOut",
+          animation: "fadeOutDown",
           icon: "",
           msg: ""
         });
@@ -54,17 +56,17 @@ class Modal extends Component {
         this._onClose();
       }
       this.setState({
-        animation: "fadeOut",
+        animationMask: "fadeOut",
+        animation: "fadeOutDown",
         zIndex: -1
       });
     }
   }
   render() {
-    if (this.state.type == "alert") {
       return (
         <Animatable.View
           style={[styles.mask, { zIndex: this.state.zIndex }]}
-          animation={this.state.animation}
+          animation={this.state.animationMask}
         >
           <Animatable.View
             style={[styles.showView, { zIndex: this.state.zIndex }]}
@@ -76,8 +78,6 @@ class Modal extends Component {
           </Animatable.View>
         </Animatable.View>
       );
-    }
-    return <View />;
   }
 }
 const styles = StyleSheet.create({
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
     color: "#fff"
   }
 });
-module.exports = Modal;
+module.exports = Alert;

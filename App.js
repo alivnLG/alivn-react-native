@@ -11,7 +11,7 @@ export default class App extends Component<{}> {
           backgroundColor="rgba(0,0,0,0)"
           barStyle="dark-content"
         />
-        <Modal />
+        <Alert />
         <Router />
       </View>
     );

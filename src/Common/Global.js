@@ -3,8 +3,7 @@ import {
   Dimensions,
   AsyncStorage,
   PixelRatio,
-  Platform,
-  Alert
+  Platform
 } from "react-native";
 
 // 项目中的图片可以通过Images.xxx 获取
@@ -19,11 +18,11 @@ import { Fit, STATUSBAR_HEIGHT } from "./Fit";
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
 
-// modal弹框
-import Modal from "./Modal";
-
 // 基于axios网络请求
 import Axios from "./Axios";
+
+// Alert弹框
+import Alert from "./Alert";
 
 // 配置文件，可以放网络请求等
 import Config from "./Config";
@@ -51,7 +50,7 @@ global.Theme = Theme;
 // 网络请求
 global.Axios = Axios;
 //弹窗
-global.Modal = Modal;
+global.Alert = Alert;
 // 配置
 global.Config = Config;
 // router跳转的方法

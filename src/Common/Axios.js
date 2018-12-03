@@ -35,13 +35,28 @@ axios.interceptors.response.use(
   },
   error => {
     if (error.response.status == "403") {
-      Modal.alert({
+      Alert.alert({
         type: "alert",
         icon: "fail",
         msg: "权限不足！",
         onClose: () => {
           Actions.login();
         }
+      });
+    } else if (error.response.status == "401") {
+      Alert.alert({
+        type: "alert",
+        icon: "fail",
+        msg: "登录已失效！",
+        onClose: () => {
+          Actions.login();
+        }
+      });
+    } else if (error.response.status == "500") {
+      Alert.alert({
+        type: "alert",
+        icon: "fail",
+        msg: "网络错误！"
       });
     }
     // Do something with response error
