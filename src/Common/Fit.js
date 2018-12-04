@@ -29,4 +29,4 @@ if (isIphoneX()) {
 } else {
   STATUSBAR_HEIGHT = StatusBarManager.HEIGHT;
 }
-export { Fit, STATUSBAR_HEIGHT, deviceWidth, deviceHeight, isIphoneX };
+export { Fit, STATUSBAR_HEIGHT, isIphoneX };

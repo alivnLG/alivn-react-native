@@ -12,6 +12,7 @@ export default class App extends Component<{}> {
           barStyle="dark-content"
         />
         <Alert />
+        <Confirm />
         <Router />
       </View>
     );

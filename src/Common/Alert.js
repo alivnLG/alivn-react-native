@@ -17,8 +17,7 @@ class Alert extends Component {
     super(props);
     this.state = {
       animationMask: "fadeIn",
-      animation: "fadeInUp",
-      type: "",
+      animation: "fadeIn",
       icon: "",
       msg: "",
       zIndex: -1
@@ -33,7 +32,6 @@ class Alert extends Component {
   //提示弹窗
   static alert(opt) {
     self.setState({
-      type: opt.type,
       icon: opt.icon,
       msg: opt.msg,
       zIndex: 6
@@ -42,13 +40,11 @@ class Alert extends Component {
   }
   //弹窗动画完成
   _onAnimationEnd() {
-    if (this.state.animation == "fadeInUp") {
+    if (this.state.animation == "fadeIn") {
       setTimeout(() => {
         this.setState({
           animationMask: "fadeOut",
-          animation: "fadeOutDown",
-          icon: "",
-          msg: ""
+          animation: "fadeOut"
         });
       }, 1500);
     } else {
@@ -57,27 +53,29 @@ class Alert extends Component {
       }
       this.setState({
         animationMask: "fadeOut",
-        animation: "fadeOutDown",
+        animation: "fadeOut",
+        icon: "",
+        msg: "",
         zIndex: -1
       });
     }
   }
   render() {
-      return (
+    return (
+      <Animatable.View
+        style={[styles.mask, { zIndex: this.state.zIndex }]}
+        animation={this.state.animationMask}
+      >
         <Animatable.View
-          style={[styles.mask, { zIndex: this.state.zIndex }]}
-          animation={this.state.animationMask}
+          style={[styles.showView, { zIndex: this.state.zIndex }]}
+          animation={this.state.animation}
+          onAnimationEnd={this._onAnimationEnd.bind(this)}
         >
-          <Animatable.View
-            style={[styles.showView, { zIndex: this.state.zIndex }]}
-            animation={this.state.animation}
-            onAnimationEnd={this._onAnimationEnd.bind(this)}
-          >
-            <Image style={styles.iconImg} source={this.Icon[this.state.icon]} />
-            <Text style={styles.alertMsg}>{this.state.msg}</Text>
-          </Animatable.View>
+          <Image style={styles.iconImg} source={this.Icon[this.state.icon]} />
+          <Text style={styles.alertMsg}>{this.state.msg}</Text>
         </Animatable.View>
-      );
+      </Animatable.View>
+    );
   }
 }
 const styles = StyleSheet.create({

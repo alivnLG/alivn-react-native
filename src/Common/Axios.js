@@ -36,7 +36,6 @@ axios.interceptors.response.use(
   error => {
     if (error.response.status == "403") {
       Alert.alert({
-        type: "alert",
         icon: "fail",
         msg: "权限不足！",
         onClose: () => {
@@ -45,7 +44,6 @@ axios.interceptors.response.use(
       });
     } else if (error.response.status == "401") {
       Alert.alert({
-        type: "alert",
         icon: "fail",
         msg: "登录已失效！",
         onClose: () => {
@@ -54,7 +52,6 @@ axios.interceptors.response.use(
       });
     } else if (error.response.status == "500") {
       Alert.alert({
-        type: "alert",
         icon: "fail",
         msg: "网络错误！"
       });

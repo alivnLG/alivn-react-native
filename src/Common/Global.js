@@ -1,32 +1,21 @@
 import React, { Component } from "react";
-import {
-  Dimensions,
-  AsyncStorage,
-  PixelRatio,
-  Platform
-} from "react-native";
-
+import { Dimensions, AsyncStorage, PixelRatio, Platform } from "react-native";
 // 项目中的图片可以通过Images.xxx 获取
 import { Images } from "../Resources/index";
-
 // 统一管理项目中的路由
 import { Actions } from "react-native-router-flux";
-
 // 处理安卓，iOS适配
 import { Fit, STATUSBAR_HEIGHT } from "./Fit";
-
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
-
 // 基于axios网络请求
 import Axios from "./Axios";
-
 // Alert弹框
 import Alert from "./Alert";
-
+//Confirm弹窗
+import Confirm from "./Confirm";
 // 配置文件，可以放网络请求等
 import Config from "./Config";
-
 // 通过系统API获得屏幕宽高
 let { height, width } = Dimensions.get("window");
 // 获取屏幕宽度
@@ -49,8 +38,10 @@ global.STATUSBAR_HEIGHT = STATUSBAR_HEIGHT;
 global.Theme = Theme;
 // 网络请求
 global.Axios = Axios;
-//弹窗
+//Alert弹窗
 global.Alert = Alert;
+//Confirm弹窗
+global.Confirm = Confirm;
 // 配置
 global.Config = Config;
 // router跳转的方法
