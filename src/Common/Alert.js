@@ -32,6 +32,8 @@ class Alert extends Component {
   //提示弹窗
   static alert(opt) {
     self.setState({
+      animationMask: "fadeIn",
+      animation: "fadeIn",
       icon: opt.icon,
       msg: opt.msg,
       zIndex: 6

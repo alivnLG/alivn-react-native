@@ -30,8 +30,16 @@ axios.interceptors.request.use(
 // 添加一个响应拦截器
 axios.interceptors.response.use(
   response => {
-    // Do something with response data
-    return response;
+    debugger;
+    if (response.data.status.code > 0) {
+      Alert.alert({
+        icon: "info",
+        msg: response.data.status.message
+      });
+      return Promise.reject();
+    } else {
+      return response.data;
+    }
   },
   error => {
     if (error.response.status == "403") {
@@ -39,7 +47,7 @@ axios.interceptors.response.use(
         icon: "fail",
         msg: "权限不足！",
         onClose: () => {
-          Actions.login();
+          Actions.reset("login");
         }
       });
     } else if (error.response.status == "401") {
@@ -47,7 +55,7 @@ axios.interceptors.response.use(
         icon: "fail",
         msg: "登录已失效！",
         onClose: () => {
-          Actions.login();
+          Actions.reset("login");
         }
       });
     } else if (error.response.status == "500") {
@@ -56,7 +64,6 @@ axios.interceptors.response.use(
         msg: "网络错误！"
       });
     }
-    // Do something with response error
     return Promise.reject(error);
   }
 );
