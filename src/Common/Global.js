@@ -10,6 +10,8 @@ import { Fit, STATUSBAR_HEIGHT } from "./Fit";
 import { Theme, Toast } from "teaset";
 // 基于axios网络请求
 import Axios from "./Axios";
+//realm本地存储
+import Store from "./Store";
 // Alert弹框
 import Alert from "./Alert";
 //Confirm弹窗
@@ -38,6 +40,8 @@ global.STATUSBAR_HEIGHT = STATUSBAR_HEIGHT;
 global.Theme = Theme;
 // 网络请求
 global.Axios = Axios;
+//realm本地存储
+global.Store = Store;
 //Alert弹窗
 global.Alert = Alert;
 //Confirm弹窗

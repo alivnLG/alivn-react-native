@@ -21,6 +21,7 @@ class Login extends Component {
   }
   _postData() {
     Axios.post("/login", this.state).then(function(res) {
+      Store.setItem("userinfo",res.data);
       Actions.reset("tabbar");
     });
   }

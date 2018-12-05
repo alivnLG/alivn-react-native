@@ -18,6 +18,8 @@ class Home extends Component {
     this._getData();
   }
   _getData() {
+    Store.setItem("userinfo",{})
+    let userinfo = Store.getItem("userinfo");
     const Data = Axios('/accounts');
   }
   render() {
