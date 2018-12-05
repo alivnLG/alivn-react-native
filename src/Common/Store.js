@@ -29,7 +29,7 @@ class localStorage extends Component {
   static getItem(key) {
     let findData = realm.objects("storeData").filtered(`key == '${key}'`);
     if (findData.length > 0) {
-      return JSON.parse(findData[0].value);
+      return findData[0].value == "{}" ? null : JSON.parse(findData[0].value);
     } else {
       return "未找到数据";
     }

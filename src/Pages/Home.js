@@ -14,15 +14,20 @@ import Common from "../styles/Common";
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      accounts: {}
+    };
     this._getData();
   }
   _getData() {
-    Store.setItem("userinfo",{})
-    let userinfo = Store.getItem("userinfo");
-    const Data = Axios('/accounts');
+    Axios.get("/accounts").then(res => {
+      this.setState({
+        accounts: res.data[0]
+      });
+    });
   }
   render() {
+    console.log(111);
     return (
       <ScrollView style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
         <ImageBackground
@@ -44,7 +49,7 @@ class Home extends Component {
               />
             </TouchableOpacity>
           </View>
-          <Text style={styles.txt3}>12000</Text>
+          <Text style={styles.txt3}>{this.state.accounts.available}</Text>
           <Text style={styles.txt4}>注册人数：4124</Text>
         </ImageBackground>
         <View style={styles.operBtn}>
@@ -115,6 +120,23 @@ class Home extends Component {
             </View>
             <View style={styles.itemAccountNum}>
               <Text style={styles.itemNumTxt}>3212</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Store.setItem("userinfo", {});
+            }}
+            style={styles.itemAccount}
+          >
+            <View style={styles.itemAccountName}>
+              <Image
+                style={styles.itemAccountImg}
+                source={require("../Resources/images/accountImg3.png")}
+              />
+              <Text style={styles.itemNameTxt}>退出</Text>
+            </View>
+            <View style={styles.itemAccountNum}>
+              <Text style={styles.itemNumTxt} />
             </View>
           </TouchableOpacity>
           <View style={styles.itemAccount}>
