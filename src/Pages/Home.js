@@ -16,18 +16,20 @@ class Home extends Component {
     super(props);
     this.state = {
       accounts: {},
-      configs: {}
+      configs: {},
+      nickname: Store.getItem("userinfo").nickname,
+      noticeStoreSize: Store.getItem("noticeStoreSize")
     };
   }
   //控制是否渲染刷新
   shouldComponentUpdate(nextProps, nextState) {
-    debugger
     return JSON.stringify(this.state) != JSON.stringify(nextState);
   }
   //组件渲染完成
   componentDidMount() {
     this._getData();
     this._getConfigs();
+    this._getNoticeSize();
   }
 
   _getConfigs() {
@@ -38,11 +40,25 @@ class Home extends Component {
     });
   }
 
+  _getNoticeSize() {
+    Axios.get("/notices/size").then(res => {
+      this.setState({
+        noticeSize: res.data.size
+      });
+    });
+  }
+
   _getData() {
     Axios.get("/accounts").then(res => {
       this.setState({
         accounts: res.data[0],
-        speed: res.data[0].frozen + res.data[0].qqFrozen
+        speed: res.data[0].frozen + res.data[0].qqFrozen,
+        all:
+          res.data[0].available +
+          res.data[0].qqFrozen +
+          res.data[0].frozen +
+          res.data[0].transfer +
+          res.data[0].warrant
       });
     });
   }
@@ -56,21 +72,30 @@ class Home extends Component {
         >
           <View style={styles.fline}>
             <View style={styles.welcome}>
-              <Text style={styles.txt1}>您好，Alivn！</Text>
+              <Text style={styles.txt1}>您好，{this.state.nickname}！</Text>
               <Text style={styles.txt2}>这是您的BGAA全部资产</Text>
             </View>
             <TouchableOpacity
               onPress={Actions.noticelist}
               style={styles.newsInfo}
             >
-              <Image
-                style={styles.newsImg}
-                source={require("../Resources/images/newsImg_active.png")}
-              />
+              {this.state.noticeSize > this.state.noticeStoreSize ? (
+                <Image
+                  style={styles.newsImg}
+                  source={require("../Resources/images/newsImg_active.png")}
+                />
+              ) : (
+                <Image
+                  style={styles.newsImg}
+                  source={require("../Resources/images/newsImg.png")}
+                />
+              )}
             </TouchableOpacity>
           </View>
-          <Text style={styles.txt3}>{this.state.accounts.available}</Text>
-          <Text style={styles.txt4}>注册人数：4124</Text>
+          <Text style={styles.txt3}>{this.state.all}</Text>
+          <Text style={styles.txt4}>
+            注册人数：{this.state.accounts.nodeSize}
+          </Text>
         </ImageBackground>
         <View style={styles.operBtn}>
           <TouchableOpacity onPress={Actions.lock} style={styles.itemBtn}>
@@ -144,23 +169,6 @@ class Home extends Component {
               <Text style={styles.itemNumTxt}>{this.state.speed}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              Store.setItem("userinfo", {});
-            }}
-            style={styles.itemAccount}
-          >
-            <View style={styles.itemAccountName}>
-              <Image
-                style={styles.itemAccountImg}
-                source={require("../Resources/images/accountImg3.png")}
-              />
-              <Text style={styles.itemNameTxt}>退出</Text>
-            </View>
-            <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt} />
-            </View>
-          </TouchableOpacity>
           <View style={styles.itemAccount}>
             <View style={styles.itemAccountName}>
               <Image
@@ -175,6 +183,20 @@ class Home extends Component {
               </Text>
               <Text style={styles.itemInNumTxt}>
                 在途资金：{this.state.accounts.transit}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemAccount}>
+            <View style={styles.itemAccountName}>
+              <Image
+                style={styles.itemAccountImg}
+                source={require("../Resources/images/accountImg5.png")}
+              />
+              <Text style={styles.itemNameTxt}>权证钱包BGAA</Text>
+            </View>
+            <View style={styles.itemAccountNum}>
+              <Text style={styles.itemNumTxt}>
+                {this.state.accounts.warrant}
               </Text>
             </View>
           </View>
