@@ -21,17 +21,12 @@ class Home extends Component {
       noticeStoreSize: Store.getItem("noticeStoreSize")
     };
   }
-  //控制是否渲染刷新
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.state) != JSON.stringify(nextState);
-  }
   //组件渲染完成
   componentDidMount() {
     this._getData();
     this._getConfigs();
     this._getNoticeSize();
   }
-
   _getConfigs() {
     Axios.get("/configs").then(res => {
       this.setState({
@@ -39,7 +34,6 @@ class Home extends Component {
       });
     });
   }
-
   _getNoticeSize() {
     Axios.get("/notices/size").then(res => {
       this.setState({
@@ -47,7 +41,6 @@ class Home extends Component {
       });
     });
   }
-
   _getData() {
     Axios.get("/accounts").then(res => {
       this.setState({
@@ -61,6 +54,10 @@ class Home extends Component {
           res.data[0].warrant
       });
     });
+  }
+  //控制是否渲染刷新
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.state) != JSON.stringify(nextState);
   }
   render() {
     console.log(111);

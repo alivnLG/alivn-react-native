@@ -29,15 +29,18 @@ class Confirm extends Component {
   Icon = {
     fail: require("../Resources/images/fail.png"),
     success: require("../Resources/images/success.png"),
-    info: require("../Resources/images/info.png")
+    info: require("../Resources/images/info.png"),
+    logout: require("../Resources/images/logout.png")
   };
   //询问弹窗
   static confirm(opt) {
     self.setState({
+      animationMask: "fadeIn",
+      animation: "fadeInUp",
       icon: opt.icon,
       msg: opt.msg,
-      cancelTxt: opt.cancelTxt,
-      okTxt: opt.okTxt,
+      cancelTxt: opt.cancelTxt ? opt.cancelTxt : "取消",
+      okTxt: opt.okTxt ? opt.okTxt : "确定",
       zIndex: 6
     });
     self._onCancel = opt.onCancel;
