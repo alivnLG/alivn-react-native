@@ -30,6 +30,7 @@ import Trade from "./Pages/Trade";
 import Wallet from "./Pages/Wallet";
 import My from "./Pages/My";
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
@@ -109,7 +110,8 @@ const router = (...props) => (
           <Scene component={My} key="my" />
         </Stack>
       </Tabs>
-      <Scene component={Login} key="login" />
+      <Scene component={Login} key="login" hideNavBar />
+      <Scene component={Register} key="register" hideNavBar />
     </Stack>
   </Router>
 );
