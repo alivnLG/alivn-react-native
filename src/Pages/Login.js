@@ -20,13 +20,13 @@ class Login extends Component {
     };
   }
   _postData() {
+    Store.setItem("userinfo", {});
     Axios.post("/login", this.state).then(function(res) {
       Store.setItem("userinfo", res.data);
       Actions.reset("tabbar");
     });
   }
   render() {
-    console.log(1111);
     return (
       <View style={Common.container}>
         <View style={styles.logoBox}>

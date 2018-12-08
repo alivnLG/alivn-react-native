@@ -15,14 +15,34 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accounts: {}
+      accounts: {},
+      configs: {}
     };
-    this._getData();
   }
+  //控制是否渲染刷新
+  shouldComponentUpdate(nextProps, nextState) {
+    debugger
+    return JSON.stringify(this.state) != JSON.stringify(nextState);
+  }
+  //组件渲染完成
+  componentDidMount() {
+    this._getData();
+    this._getConfigs();
+  }
+
+  _getConfigs() {
+    Axios.get("/configs").then(res => {
+      this.setState({
+        configs: res.data
+      });
+    });
+  }
+
   _getData() {
     Axios.get("/accounts").then(res => {
       this.setState({
-        accounts: res.data[0]
+        accounts: res.data[0],
+        speed: res.data[0].frozen + res.data[0].qqFrozen
       });
     });
   }
@@ -95,7 +115,7 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>积分</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>12345</Text>
+              <Text style={styles.itemNumTxt}>{this.state.accounts.rmb}</Text>
             </View>
           </View>
           <View style={styles.itemAccount}>
@@ -107,7 +127,9 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>可用BGAA</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>3421</Text>
+              <Text style={styles.itemNumTxt}>
+                {this.state.accounts.available}
+              </Text>
             </View>
           </View>
           <TouchableOpacity onPress={Actions.speed} style={styles.itemAccount}>
@@ -119,7 +141,7 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>待加速BGAA</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>3212</Text>
+              <Text style={styles.itemNumTxt}>{this.state.speed}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -148,8 +170,12 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>消费钱包BGAA</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>3444</Text>
-              <Text style={styles.itemInNumTxt}>在途资金：12321</Text>
+              <Text style={styles.itemNumTxt}>
+                {this.state.accounts.transfer}
+              </Text>
+              <Text style={styles.itemInNumTxt}>
+                在途资金：{this.state.accounts.transit}
+              </Text>
             </View>
           </View>
         </View>
@@ -162,7 +188,9 @@ class Home extends Component {
             />
             <Text style={styles.itemHqTxt1}>BGAA</Text>
             <View style={styles.itemHqNum}>
-              <Text style={[styles.HqNumTxt, { color: "#FA6962" }]}>≈ 1</Text>
+              <Text style={[styles.HqNumTxt, { color: "#FA6962" }]}>
+                ≈ {this.state.configs.rmbRate}
+              </Text>
               <Text style={[styles.HqType, { color: "#FA6962" }]}>CNY</Text>
             </View>
           </View>
@@ -174,7 +202,7 @@ class Home extends Component {
             <Text style={styles.itemHqTxt1}>ETH</Text>
             <View style={styles.itemHqNum}>
               <Text style={[styles.HqNumTxt, { color: "#58B535" }]}>
-                ≈ 1440
+                ≈ {this.state.configs.ethRmb}
               </Text>
               <Text style={[styles.HqType, { color: "#58B535" }]}>CNY</Text>
             </View>

@@ -14,6 +14,7 @@ import { Actions } from "react-native-router-flux";
 //配置
 axios.defaults.baseURL = "http://192.168.0.30/team/";
 axios.defaults.timeout = 0;
+
 let userinfo = Store.getItem("userinfo");
 let headers = {
   "accept-language": "zh-CN"
@@ -22,13 +23,21 @@ if (userinfo) {
   headers["X-Auth-User"] = userinfo.username;
   headers["X-Auth-Token"] = userinfo.token;
 }
-axios.defaults.headers = headers;
-//拦截器
 
+//拦截器
 axios.interceptors.request.use(
   config => {
     //console.log(config);
     // Do something before request is sent
+    let userinfo = Store.getItem("userinfo");
+    let headers = {
+      "accept-language": "zh-CN"
+    };
+    if (userinfo) {
+      headers["X-Auth-User"] = userinfo.username;
+      headers["X-Auth-Token"] = userinfo.token;
+    }
+    config.headers = headers;
     return config;
   },
   error => {
@@ -64,7 +73,6 @@ axios.interceptors.response.use(
         icon: "fail",
         msg: "登录已失效！",
         onClose: () => {
-          Store.setItem("userinfo",{});
           Actions.reset("login");
         }
       });
