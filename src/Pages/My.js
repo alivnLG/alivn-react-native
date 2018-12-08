@@ -29,6 +29,12 @@ class My extends Component {
       });
     });
   }
+  _contactUs() {
+    Confirm.confirm({
+      msg:
+        "如有问题或建议反馈给我们，这将帮助我们持续改进。邮箱:contactus@bgaa.vip"
+    });
+  }
   _logOut() {
     Confirm.confirm({
       icon: "logout",
@@ -116,8 +122,8 @@ class My extends Component {
           <TouchableOpacity
             style={styles.linkItem}
             onPress={() => {
-              const userInfo = store.getItem("userInfo");
-              if (!userInfo.hasTradePwd) {
+              const userinfo = Store.getItem("userinfo");
+              if (!userinfo.hasTradePwd) {
                 Actions.capitalpwd();
               } else {
                 Actions.updatecapitalpwd();
@@ -151,42 +157,7 @@ class My extends Component {
           <TouchableOpacity
             style={styles.linkItem}
             onPress={() => {
-              confirm({
-                msg: (
-                  <View>
-                    <Text style={{ color: "#fff", fontSize: 16 }}>
-                      如有问题或建议反馈给我们，这将帮助我们持续改进。
-                    </Text>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flexWrap: "wrap",
-                        marginTop: 10
-                      }}
-                    >
-                      <Text style={{ color: "#fff", fontSize: 16 }}>邮箱:</Text>
-                      <Text
-                        onPress={() => {
-                          Clipboard.setString("contactus@bgaa.vip");
-                          alert({
-                            types: "success",
-                            title: "消息",
-                            msg: "复制成功"
-                          });
-                        }}
-                        style={{
-                          color: "#fff",
-                          fontSize: 16,
-                          borderBottomWidth: 1,
-                          borderBottomColor: "#fff"
-                        }}
-                      >
-                        contactus@bgaa.vip
-                      </Text>
-                    </View>
-                  </View>
-                )
-              });
+              this._contactUs();
             }}
           >
             <Image
@@ -199,12 +170,7 @@ class My extends Component {
               source={require("../Resources/images/right.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.linkItem}
-            onPress={() => {
-              update();
-            }}
-          >
+          <TouchableOpacity style={styles.linkItem}>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/update.png")}

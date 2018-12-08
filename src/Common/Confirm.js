@@ -18,7 +18,7 @@ class Confirm extends Component {
     this.state = {
       animationMask: "fadeIn",
       animation: "fadeInUp",
-      icon: "",
+      icon: "info",
       msg: "",
       cancelTxt: "取消",
       okTxt: "确认",
