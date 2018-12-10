@@ -13,60 +13,14 @@ import Nav from "../Component/Nav";
 class Register extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      secureTextEntry1: true,
+      secureTextEntry2: true
+    };
   }
-  _postData() {
-    axios.post("/register", this.state).then(res => {
-      alert({
-        title: "消息",
-        msg: "注册成功！",
-        onClose: function() {
-          Store.setItem("userinfo", res.data);
-          Actions.replace("home");
-        }
-      });
-    });
-  }
-  _sendCode() {
-    if (this.state.codeText == "获取验证码") {
-      axios
-        .post("/verification/code", {
-          email: this.state.email
-        })
-        .then(res => {
-          this.setState({
-            codeText: this.time + "s"
-          });
-          this.timer = setInterval(() => {
-            this.time;
-            if (this.time >= 0) {
-              this.setState({
-                codeText: this.time-- + "s"
-              });
-            } else {
-              this.setState({
-                codeText: "获取验证码"
-              });
-              clearInterval(this.time);
-            }
-          }, 1000);
-        })
-        .catch(err => {
-          this.time = 60;
-          this.setState({
-            codeText: "获取验证码"
-          });
-          this.setState({
-            codeText: "获取验证码"
-          });
-          clearInterval(this.time);
-        });
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
-
   render() {
     return (
       <View style={Common.container}>
@@ -96,11 +50,25 @@ class Register extends Component {
             />
           </View>
           <View style={Common.itemBox}>
-            <TouchableOpacity style={Common.eye}>
-              <Image
-                style={Common.eyeImg}
-                source={require("../Resources/images/eye-y.png")}
-              />
+            <TouchableOpacity
+              style={Common.eye}
+              onPress={() => {
+                this.setState({
+                  secureTextEntry1: !this.state.secureTextEntry1
+                });
+              }}
+            >
+              {this.state.secureTextEntry1 ? (
+                <Image
+                  style={Common.eyeImg}
+                  source={require("../Resources/images/eye-n.png")}
+                />
+              ) : (
+                <Image
+                  style={Common.eyeImg}
+                  source={require("../Resources/images/eye-y.png")}
+                />
+              )}
             </TouchableOpacity>
             <TextInput
               underlineColorAndroid="transparent"
@@ -111,11 +79,25 @@ class Register extends Component {
             />
           </View>
           <View style={Common.itemBox}>
-            <TouchableOpacity style={Common.eye}>
-              <Image
-                style={Common.eyeImg}
-                source={require("../Resources/images/eye-y.png")}
-              />
+            <TouchableOpacity
+              style={Common.eye}
+              onPress={() => {
+                this.setState({
+                  secureTextEntry2: !this.state.secureTextEntry2
+                });
+              }}
+            >
+              {this.state.secureTextEntry2 ? (
+                <Image
+                  style={Common.eyeImg}
+                  source={require("../Resources/images/eye-n.png")}
+                />
+              ) : (
+                <Image
+                  style={Common.eyeImg}
+                  source={require("../Resources/images/eye-y.png")}
+                />
+              )}
             </TouchableOpacity>
             <TextInput
               underlineColorAndroid="transparent"
