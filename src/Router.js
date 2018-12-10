@@ -31,6 +31,7 @@ import Wallet from "./Pages/Wallet";
 import My from "./Pages/My";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import Scan from "./Pages/Scan";
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
@@ -112,6 +113,7 @@ const router = (...props) => (
       </Tabs>
       <Scene component={Login} key="login" hideNavBar />
       <Scene component={Register} key="register" hideNavBar />
+      <Scene component={Scan} key="scan" hideNavBar />
     </Stack>
   </Router>
 );

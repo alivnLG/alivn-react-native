@@ -115,7 +115,12 @@ class Register extends Component {
               placeholder="请输入邀请码"
             />
 
-            <TouchableOpacity style={styles.scan}>
+            <TouchableOpacity
+              style={styles.scan}
+              onPress={() => {
+                Actions.replace("scan");
+              }}
+            >
               <Image
                 style={styles.scanImg}
                 source={require("../Resources/images/scan.png")}
