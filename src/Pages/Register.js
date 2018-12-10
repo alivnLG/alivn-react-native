@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
-import Nav from "../Common/Nav";
+import Nav from "../Component/Nav";
 class Register extends Component {
   constructor(props) {
     super(props);

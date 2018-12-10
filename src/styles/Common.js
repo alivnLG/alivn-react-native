@@ -13,7 +13,9 @@ export default (Common = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    borderBottomColor:"#f2f2f2",
+    borderBottomWidth:1
   },
   title: {
     textAlign: "center",
@@ -35,11 +37,15 @@ export default (Common = StyleSheet.create({
     paddingRight: Fit(30),
     height: Fit(64)
   },
+  rightIcon: {
+    height: Fit(44),
+    width: Fit(44)
+  },
   rightTxt: {
     alignItems: "center",
     fontSize: Fit(30)
   },
-  leftImg: {
+  leftIcon: {
     height: Fit(44),
     width: Fit(44)
   },
