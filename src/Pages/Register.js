@@ -15,9 +15,21 @@ class Register extends Component {
     super(props);
     this.state = {
       secureTextEntry1: true,
-      secureTextEntry2: true
+      secureTextEntry2: true,
+      scanData:""
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    // 假设前一个页面传递过来一个名字叫做isRefresh的布尔型参数
+    if (nextProps.scanData) {
+      // TODO 根据需求执行相关操作
+      this.setState({
+        scanData:nextProps.scanData
+      })
+    }
+  }
+  
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
@@ -111,6 +123,7 @@ class Register extends Component {
             <TextInput
               underlineColorAndroid="transparent"
               ref="refUser"
+              value={this.state.scanData}
               style={Common.inputStyle}
               placeholder="请输入邀请码"
             />
@@ -118,7 +131,7 @@ class Register extends Component {
             <TouchableOpacity
               style={styles.scan}
               onPress={() => {
-                Actions.replace("scan");
+                Actions.push("scan");
               }}
             >
               <Image
