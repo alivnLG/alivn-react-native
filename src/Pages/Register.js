@@ -10,29 +10,55 @@ import {
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
+import Axios from "axios";
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       secureTextEntry1: true,
       secureTextEntry2: true,
-      scanData:""
+      scanData: "",
+      codeTxt: "发送验证码",
+      count: 60,
+      email: ""
     };
   }
 
+  //接收扫描到的数据
   componentWillReceiveProps(nextProps) {
-    // 假设前一个页面传递过来一个名字叫做isRefresh的布尔型参数
     if (nextProps.scanData) {
-      // TODO 根据需求执行相关操作
       this.setState({
-        scanData:nextProps.scanData
-      })
+        scanData: nextProps.scanData
+      });
     }
   }
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+  //发送验证码
+  _postCode() {
+    if (this.state.codeTxt == "发送验证码") {
+      Axios.post("/verification/code", { email: this.state.email }).then(
+        res => {
+          setInterval(() => {
+            this.setState({
+              codeTxt: this.state.count + " s"
+            });
+            if (this.state.count > 0) {
+              this.state.count--;
+            } else if (this.state.count == 0) {
+              this.setState({
+                codeTxt: "发送验证码",
+                count: 60
+              });
+            }
+          }, 1000);
+        }
+      );
+    }
+  }
+
   render() {
     return (
       <View style={Common.container}>
@@ -48,11 +74,23 @@ class Register extends Component {
             keyboardType="email-address"
             underlineColorAndroid="transparent"
             ref="email"
+            onChangeText={email => {
+              this.setState({
+                email: email
+              });
+            }}
             style={Common.inputStyle}
             placeholder="请输入邮箱地址"
           />
           <View style={Common.itemBox}>
-            <Text style={Common.sendCode}>发送验证码</Text>
+            <Text
+              style={Common.sendCode}
+              onPress={() => {
+                this._postCode();
+              }}
+            >
+              {this.state.codeTxt}
+            </Text>
             <TextInput
               keyboardType="numeric"
               underlineColorAndroid="transparent"
@@ -86,7 +124,7 @@ class Register extends Component {
               underlineColorAndroid="transparent"
               ref="password"
               style={Common.inputStyle}
-              secureTextEntry={true}
+              secureTextEntry={this.state.secureTextEntry1 ? true : false}
               placeholder="请设置密码"
             />
           </View>
@@ -115,7 +153,7 @@ class Register extends Component {
               underlineColorAndroid="transparent"
               ref="passwordver"
               style={Common.inputStyle}
-              secureTextEntry={true}
+              secureTextEntry={this.state.secureTextEntry2 ? true : false}
               placeholder="请再次输入密码"
             />
           </View>
@@ -124,7 +162,7 @@ class Register extends Component {
               underlineColorAndroid="transparent"
               ref="refUser"
               value={this.state.scanData}
-              style={Common.inputStyle}
+              style={[Common.inputStyle, { paddingRight: Fit(60) }]}
               placeholder="请输入邀请码"
             />
 

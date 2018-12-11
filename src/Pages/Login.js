@@ -19,6 +19,9 @@ class Login extends Component {
       secureTextEntry: true
     };
   }
+  componentDidMount() {
+    Store.setItem("userinfo", {});
+  }
   _postData() {
     Store.setItem("userinfo", {});
     Axios.post("/login", this.state).then(function(res) {

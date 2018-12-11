@@ -17,7 +17,9 @@ class Home extends Component {
     this.state = {
       accounts: {},
       configs: {},
-      nickname: Store.getItem("userinfo").nickname,
+      nickname: Store.getItem("userinfo")
+        ? Store.getItem("userinfo").nickname
+        : "",
       noticeStoreSize: Store.getItem("noticeStoreSize")
     };
   }

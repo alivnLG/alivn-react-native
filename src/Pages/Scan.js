@@ -23,7 +23,11 @@ export default class ScanCameraPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Nav title="扫描" rightType="txt" rightTxt="相册" />
+        <Nav
+          title="扫描"
+          leftType="icon"
+          leftIcon={require("../Resources/images/back.png")}
+        />
         <Camera
           ref={cam => {
             this.camera = cam;
