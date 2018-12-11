@@ -111,7 +111,7 @@ const router = (...props) => (
           <Scene component={My} key="my" />
         </Stack>
       </Tabs>
-      <Scene component={Login} key="login" hideNavBar />
+      <Scene component={Login} key="login" initial={true} hideNavBar />
       <Scene component={Register} key="register" hideNavBar />
       <Scene component={Scan} key="scan" hideNavBar />
     </Stack>

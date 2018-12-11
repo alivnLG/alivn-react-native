@@ -10,6 +10,7 @@ import {
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Axios from "axios";
+import Validate from "../Common/validate";
 class Login extends Component {
   constructor(props) {
     super(props);
