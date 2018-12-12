@@ -57,7 +57,7 @@ export default (Common = StyleSheet.create({
     borderBottomColor: "#EDEDED",
     marginTop: Fit(15)
   },
-  fromError: {
+  errMsg: {
     marginTop: Fit(4),
     fontSize: Fit(22),
     color: "#f00"

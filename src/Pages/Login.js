@@ -10,7 +10,7 @@ import {
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Axios from "axios";
-import Validate from "../Common/validate";
+import { validate, submit, getErrorsInField } from "../Common/validate";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -46,12 +46,14 @@ class Login extends Component {
             style={Common.inputStyle}
             ref="email"
             onChangeText={email => {
-              this.setState({
-                email: email
+              const verData = validate(this, {
+                name: "email",
+                value: email
               });
             }}
             placeholder="请输入正确的邮箱地址"
           />
+          <Text style={Common.errMsg}>{getErrorsInField("email")}</Text>
           <View style={Common.itemBox}>
             <TouchableOpacity style={Common.eye}>
               <Image
@@ -69,12 +71,14 @@ class Login extends Component {
               style={Common.inputStyle}
               ref="password"
               onChangeText={password => {
-                this.setState({
-                  password: password
+                const verData = validate(this, {
+                  name: "password",
+                  value: password
                 });
               }}
               placeholder="请输入密码"
             />
+            <Text style={Common.errMsg}>{getErrorsInField("password")}</Text>
           </View>
           <View style={Common.flexContent}>
             <Text onPress={Actions.forget} style={Common.rightText}>
@@ -85,7 +89,10 @@ class Login extends Component {
             underlayColor="#18a304"
             style={Common.buttonStyle}
             onPress={() => {
-              this._postData();
+              const verData = submit(this);
+              if (verData) {
+                this._postData();
+              }
             }}
           >
             <Text style={Common.buttonTextStyle}>登录</Text>
