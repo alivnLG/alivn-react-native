@@ -19,7 +19,7 @@ class Nav extends Component {
         {this.props.leftTxt}
       </Text>
     ),
-    icon: <Image style={Common.leftIcon} source={this.props.leftIcon} />
+    icon: <Image style={Common.leftIcon} source={this.props.leftIcon?this.props.leftIcon:require("../Resources/images/back.png")} />
   };
   rightType = {
     txt: (

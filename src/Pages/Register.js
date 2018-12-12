@@ -62,7 +62,7 @@ class Register extends Component {
   render() {
     return (
       <View style={Common.container}>
-        <Nav title="邮箱注册" />
+        <Nav title="邮箱注册" leftType="icon" />
         <View style={Common.fromBox}>
           <TextInput
             underlineColorAndroid="transparent"
@@ -108,17 +108,14 @@ class Register extends Component {
                 });
               }}
             >
-              {this.state.secureTextEntry1 ? (
-                <Image
-                  style={Common.eyeImg}
-                  source={require("../Resources/images/eye-n.png")}
-                />
-              ) : (
-                <Image
-                  style={Common.eyeImg}
-                  source={require("../Resources/images/eye-y.png")}
-                />
-              )}
+              <Image
+                style={Common.eyeImg}
+                source={
+                  this.state.secureTextEntry1
+                    ? require("../Resources/images/eye-n.png")
+                    : require("../Resources/images/eye-y.png")
+                }
+              />
             </TouchableOpacity>
             <TextInput
               underlineColorAndroid="transparent"
@@ -137,17 +134,14 @@ class Register extends Component {
                 });
               }}
             >
-              {this.state.secureTextEntry2 ? (
-                <Image
-                  style={Common.eyeImg}
-                  source={require("../Resources/images/eye-n.png")}
-                />
-              ) : (
-                <Image
-                  style={Common.eyeImg}
-                  source={require("../Resources/images/eye-y.png")}
-                />
-              )}
+              <Image
+                style={Common.eyeImg}
+                source={
+                  this.state.secureTextEntry2
+                    ? require("../Resources/images/eye-n.png")
+                    : require("../Resources/images/eye-y.png")
+                }
+              />
             </TouchableOpacity>
             <TextInput
               underlineColorAndroid="transparent"

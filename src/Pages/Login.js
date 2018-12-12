@@ -55,13 +55,20 @@ class Login extends Component {
           />
           <Text style={Common.errMsg}>{getErrorsInField("email")}</Text>
           <View style={Common.itemBox}>
-            <TouchableOpacity style={Common.eye}>
+            <TouchableOpacity
+              style={Common.eye}
+              onPress={() => {
+                this.setState({
+                  secureTextEntry: !this.state.secureTextEntry
+                });
+              }}
+            >
               <Image
                 style={Common.eyeImg}
                 source={
                   this.state.secureTextEntry
-                    ? require("../Resources/images/eye-y.png")
-                    : require("../Resources/images/eye-n.png")
+                    ? require("../Resources/images/eye-n.png")
+                    : require("../Resources/images/eye-y.png")
                 }
               />
             </TouchableOpacity>
