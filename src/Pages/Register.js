@@ -11,16 +11,22 @@ import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import Axios from "axios";
+import { validate, submit, getErrorsInField } from "../Common/validate";
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nickname:"",
+      email: "",
+      code: "",
+      password: "",
+      passwordver: "",
+      refUser: "",
       secureTextEntry1: true,
       secureTextEntry2: true,
       scanData: "",
       codeTxt: "发送验证码",
-      count: 60,
-      email: ""
+      count: 60
     };
   }
 
@@ -37,11 +43,12 @@ class Register extends Component {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
   //发送验证码
-  _postCode() {
+  timeEr = null;
+  _getCode() {
     if (this.state.codeTxt == "发送验证码") {
       Axios.post("/verification/code", { email: this.state.email }).then(
         res => {
-          setInterval(() => {
+          this.timeEr = setInterval(() => {
             this.setState({
               codeTxt: this.state.count + " s"
             });
@@ -52,6 +59,7 @@ class Register extends Component {
                 codeTxt: "发送验证码",
                 count: 60
               });
+              clearInterval(this.timeEr);
             }
           }, 1000);
         }
@@ -68,25 +76,40 @@ class Register extends Component {
             underlineColorAndroid="transparent"
             style={Common.inputStyle}
             ref="nickname"
+            onChangeText={nickname => {
+              validate(this, {
+                name: "nickname",
+                value: nickname
+              });
+            }}
             placeholder="请输入昵称"
           />
+          <Text style={Common.errMsg}>{getErrorsInField("nickname")}</Text>
           <TextInput
             keyboardType="email-address"
             underlineColorAndroid="transparent"
             ref="email"
             onChangeText={email => {
-              this.setState({
-                email: email
+              validate(this, {
+                name: "email",
+                value: email
               });
             }}
             style={Common.inputStyle}
             placeholder="请输入邮箱地址"
           />
+          <Text style={Common.errMsg}>{getErrorsInField("email")}</Text>
           <View style={Common.itemBox}>
             <Text
               style={Common.sendCode}
               onPress={() => {
-                this._postCode();
+                const verData = validate(this, {
+                  name: "email",
+                  value: this.state.email
+                });
+                if (verData) {
+                  this._getCode();
+                }
               }}
             >
               {this.state.codeTxt}
@@ -96,8 +119,15 @@ class Register extends Component {
               underlineColorAndroid="transparent"
               ref="code"
               style={Common.inputStyle}
+              onChangeText={code => {
+                validate(this, {
+                  name: "code",
+                  value: code
+                });
+              }}
               placeholder="请输入验证码"
             />
+            <Text style={Common.errMsg}>{getErrorsInField("code")}</Text>
           </View>
           <View style={Common.itemBox}>
             <TouchableOpacity
@@ -122,8 +152,15 @@ class Register extends Component {
               ref="password"
               style={Common.inputStyle}
               secureTextEntry={this.state.secureTextEntry1 ? true : false}
+              onChangeText={password => {
+                validate(this, {
+                  name: "password",
+                  value: password
+                });
+              }}
               placeholder="请设置密码"
             />
+            <Text style={Common.errMsg}>{getErrorsInField("password")}</Text>
           </View>
           <View style={Common.itemBox}>
             <TouchableOpacity
@@ -148,8 +185,18 @@ class Register extends Component {
               ref="passwordver"
               style={Common.inputStyle}
               secureTextEntry={this.state.secureTextEntry2 ? true : false}
+              onChangeText={passwordver => {
+                validate(this, {
+                  value: passwordver,
+                  name: "passwordver",
+                  equalName: "password"
+                });
+              }}
               placeholder="请再次输入密码"
             />
+            <Text style={Common.errMsg}>
+              {getErrorsInField("passwordver")}
+            </Text>
           </View>
           <View style={Common.itemBox}>
             <TextInput
@@ -157,6 +204,12 @@ class Register extends Component {
               ref="refUser"
               value={this.state.scanData}
               style={[Common.inputStyle, { paddingRight: Fit(60) }]}
+              onChangeText={refUser => {
+                validate(this, {
+                  value: refUser,
+                  name: "refUser"
+                });
+              }}
               placeholder="请输入邀请码"
             />
 
@@ -171,8 +224,18 @@ class Register extends Component {
                 source={require("../Resources/images/scan.png")}
               />
             </TouchableOpacity>
+            <Text style={Common.errMsg}>{getErrorsInField("refUser")}</Text>
           </View>
-          <TouchableOpacity underlayColor="#18a304" style={Common.buttonStyle}>
+          <TouchableOpacity
+            underlayColor="#18a304"
+            style={Common.buttonStyle}
+            onPress={() => {
+              const verData = submit(this);
+              if (verData) {
+                this._postData();
+              }
+            }}
+          >
             <Text style={Common.buttonTextStyle}>注册</Text>
           </TouchableOpacity>
         </View>

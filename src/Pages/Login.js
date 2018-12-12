@@ -46,7 +46,7 @@ class Login extends Component {
             style={Common.inputStyle}
             ref="email"
             onChangeText={email => {
-              const verData = validate(this, {
+              validate(this, {
                 name: "email",
                 value: email
               });
@@ -78,7 +78,7 @@ class Login extends Component {
               style={Common.inputStyle}
               ref="password"
               onChangeText={password => {
-                const verData = validate(this, {
+                validate(this, {
                   name: "password",
                   value: password
                 });
