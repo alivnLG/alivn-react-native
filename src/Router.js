@@ -32,6 +32,7 @@ import My from "./Pages/My";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Scan from "./Pages/Scan";
+import Forget from "./Pages/Forget";
 
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
@@ -52,6 +53,7 @@ const onBackPress = () => {
   return true;
 };
 
+const userinfo = Store.getItem("userinfo");
 const router = (...props) => (
   <Router
     createReducer={reducerCreate}
@@ -79,6 +81,7 @@ const router = (...props) => (
           key="Home"
           title={"首页"}
           image={Images.Home}
+          initial={!!userinfo}
           selectedImage={Images.aHome}
         >
           <Scene component={Home} key="home" />
@@ -111,9 +114,10 @@ const router = (...props) => (
           <Scene component={My} key="my" />
         </Stack>
       </Tabs>
-      <Scene component={Login} key="login" hideNavBar />
+      <Scene component={Login} initial={!userinfo} key="login" hideNavBar />
       <Scene component={Register} key="register" hideNavBar />
       <Scene component={Scan} key="scan" hideNavBar />
+      <Scene component={Forget} key="forget" hideNavBar />
     </Stack>
   </Router>
 );
