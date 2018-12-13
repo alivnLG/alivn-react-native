@@ -16,7 +16,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nickname:"",
+      nickname: "",
       email: "",
       code: "",
       password: "",
@@ -24,7 +24,6 @@ class Register extends Component {
       refUser: "",
       secureTextEntry1: true,
       secureTextEntry2: true,
-      scanData: "",
       codeTxt: "发送验证码",
       count: 60
     };
@@ -34,7 +33,7 @@ class Register extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.scanData) {
       this.setState({
-        scanData: nextProps.scanData
+        refUser: nextProps.scanData
       });
     }
   }
@@ -65,6 +64,19 @@ class Register extends Component {
         }
       );
     }
+  }
+  //注册
+  _postData() {
+    Axios.post("/register", this.state).then(res => {
+      Alert.alert({
+        icon: "info",
+        msg: "注册成功！",
+        onClose: () => {
+          Store.setItem("userinfo", res.data);
+          Actions.replace("home");
+        }
+      });
+    });
   }
 
   render() {
@@ -194,15 +206,13 @@ class Register extends Component {
               }}
               placeholder="请再次输入密码"
             />
-            <Text style={Common.errMsg}>
-              {getErrorsInField("passwordver")}
-            </Text>
+            <Text style={Common.errMsg}>{getErrorsInField("passwordver")}</Text>
           </View>
           <View style={Common.itemBox}>
             <TextInput
               underlineColorAndroid="transparent"
               ref="refUser"
-              value={this.state.scanData}
+              defaultValue={this.state.refUser}
               style={[Common.inputStyle, { paddingRight: Fit(60) }]}
               onChangeText={refUser => {
                 validate(this, {
