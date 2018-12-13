@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
+import BigNumber from "bignumber.js";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -91,9 +92,11 @@ class Home extends Component {
               )}
             </TouchableOpacity>
           </View>
-          <Text style={styles.txt3}>{this.state.all}</Text>
+          <Text style={styles.txt3}>
+            {new BigNumber(this.state.all).toFormat()}
+          </Text>
           <Text style={styles.txt4}>
-            注册人数：{this.state.accounts.nodeSize}
+            注册人数：{new BigNumber(this.state.accounts.nodeSize).toFormat()}
           </Text>
         </ImageBackground>
         <View style={styles.operBtn}>
@@ -105,7 +108,7 @@ class Home extends Component {
             <Text style={styles.itemTxt}>锁仓BGAA</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={Actions.wallettransfer}
+            onPress={Actions.transferEnter}
             style={styles.itemBtn}
           >
             <Image
@@ -139,7 +142,9 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>积分</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>{this.state.accounts.rmb}</Text>
+              <Text style={styles.itemNumTxt}>
+                {new BigNumber(this.state.accounts.rmb).toFormat()}
+              </Text>
             </View>
           </View>
           <View style={styles.itemAccount}>
@@ -152,7 +157,7 @@ class Home extends Component {
             </View>
             <View style={styles.itemAccountNum}>
               <Text style={styles.itemNumTxt}>
-                {this.state.accounts.available}
+                {new BigNumber(this.state.accounts.available).toFormat()}
               </Text>
             </View>
           </View>
@@ -165,7 +170,9 @@ class Home extends Component {
               <Text style={styles.itemNameTxt}>待加速BGAA</Text>
             </View>
             <View style={styles.itemAccountNum}>
-              <Text style={styles.itemNumTxt}>{this.state.speed}</Text>
+              <Text style={styles.itemNumTxt}>
+                {new BigNumber(this.state.speed).toFormat()}
+              </Text>
             </View>
           </TouchableOpacity>
           <View style={styles.itemAccount}>
@@ -178,10 +185,11 @@ class Home extends Component {
             </View>
             <View style={styles.itemAccountNum}>
               <Text style={styles.itemNumTxt}>
-                {this.state.accounts.transfer}
+                {new BigNumber(this.state.accounts.transfer).toFormat()}
               </Text>
               <Text style={styles.itemInNumTxt}>
-                在途资金：{this.state.accounts.transit}
+                在途资金：
+                {new BigNumber(this.state.accounts.transit).toFormat()}
               </Text>
             </View>
           </View>
@@ -195,7 +203,7 @@ class Home extends Component {
             </View>
             <View style={styles.itemAccountNum}>
               <Text style={styles.itemNumTxt}>
-                {this.state.accounts.warrant}
+                {new BigNumber(this.state.accounts.warrant).toFormat()}
               </Text>
             </View>
           </View>
@@ -210,7 +218,7 @@ class Home extends Component {
             <Text style={styles.itemHqTxt1}>BGAA</Text>
             <View style={styles.itemHqNum}>
               <Text style={[styles.HqNumTxt, { color: "#FA6962" }]}>
-                ≈ {this.state.configs.rmbRate}
+                ≈ {new BigNumber(this.state.configs.rmbRate).toFormat()}
               </Text>
               <Text style={[styles.HqType, { color: "#FA6962" }]}>CNY</Text>
             </View>
@@ -223,7 +231,7 @@ class Home extends Component {
             <Text style={styles.itemHqTxt1}>ETH</Text>
             <View style={styles.itemHqNum}>
               <Text style={[styles.HqNumTxt, { color: "#58B535" }]}>
-                ≈ {this.state.configs.ethRmb}
+                ≈ {new BigNumber(this.state.configs.ethRmb).toFormat()}
               </Text>
               <Text style={[styles.HqType, { color: "#58B535" }]}>CNY</Text>
             </View>

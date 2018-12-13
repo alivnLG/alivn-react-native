@@ -10,7 +10,7 @@ import {
 import Camera from "react-native-camera";
 import { Actions } from "react-native-router-flux";
 import Nav from "../Component/Nav";
-export default class ScanCameraPage extends Component {
+class Scan extends Component {
   constructor(props) {
     super(props);
     this.camera = null;
@@ -136,3 +136,5 @@ const styles = StyleSheet.create({
     fontSize: Fit(24)
   }
 });
+
+module.exports = Scan;

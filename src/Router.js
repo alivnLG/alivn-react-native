@@ -33,7 +33,9 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Scan from "./Pages/Scan";
 import Forget from "./Pages/Forget";
-
+import Lock from "./Pages/Lock";
+import TransferEnter from "./Pages/TransferEnter";
+import LockLog from "./Pages/LockLog";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -118,6 +120,9 @@ const router = (...props) => (
       <Scene component={Register} key="register" hideNavBar />
       <Scene component={Scan} key="scan" hideNavBar />
       <Scene component={Forget} key="forget" hideNavBar />
+      <Scene component={Lock} key="lock" hideNavBar />
+      <Scene component={LockLog} key="lockLog" hideNavBar />
+      <Scene component={TransferEnter} key="transferEnter" hideNavBar />
     </Stack>
   </Router>
 );

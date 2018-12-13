@@ -35,7 +35,7 @@ class Nav extends Component {
         <TouchableOpacity
           style={Common.leftButton}
           onPress={() => {
-            this.props.onLeft ? this.props.onLeft : Actions.pop();
+            this.props.onLeft ? this.props.onLeft() : Actions.pop();
           }}
         >
           {this.leftType[this.props.leftType]}
@@ -46,7 +46,7 @@ class Nav extends Component {
         <TouchableOpacity
           style={Common.rightButton}
           onPress={() => {
-            this.props.onRight ? this.props.onRight : Actions.pop();
+            this.props.onRight ? this.props.onRight() : Actions.pop();
           }}
         >
           {this.rightType[this.props.rightType]}

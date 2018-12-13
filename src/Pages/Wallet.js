@@ -7,7 +7,7 @@ import {
   ScrollView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-class Trade extends Component {
+class Wallet extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-module.exports = Trade;
+module.exports = Wallet;

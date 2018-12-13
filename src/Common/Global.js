@@ -5,7 +5,7 @@ import { Images } from "../Resources/index";
 // 统一管理项目中的路由
 import { Actions } from "react-native-router-flux";
 // 处理安卓，iOS适配
-import { Fit, STATUSBAR_HEIGHT } from "./Fit";
+import { Fit, STATUSBAR_HEIGHT,isIphoneX} from "./Fit";
 // teaset中提供的一些常用方法
 import { Theme, Toast } from "teaset";
 // 基于axios网络请求
@@ -36,6 +36,8 @@ global.pixel = 1 / PixelRatio;
 global.Fit = Fit;
 //状态栏高度
 global.STATUSBAR_HEIGHT = STATUSBAR_HEIGHT;
+//判断是否为iphonex
+global.isIphoneX = isIphoneX;
 // 主题
 global.Theme = Theme;
 // 网络请求
