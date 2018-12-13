@@ -11,24 +11,74 @@ import {
 import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
-
+import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
+import Axios from "axios";
 class LockLog extends Component {
   constructor(props) {
     super(props);
-    this.startDate = "";
-    this.endDate = "";
-    const myDate = new Date();
-    this.FullYear = myDate.getFullYear();
-    this.Month = myDate.getMonth() + 1;
     this.state = {
-      title: "全部"
+      title: "全部",
+      dataList: [],
+      refreshState: RefreshState.Idle
     };
   }
-
+  componentDidMount() {
+    this.onHeaderRefresh();
+  }
+  async sleep(duration) {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, duration);
+    });
+  }
+  //下拉刷新
+  async onHeaderRefresh() {
+    this.setState({ refreshState: RefreshState.HeaderRefreshing });
+    //获取数据
+    let res = await Axios.get("/accounts/frozen");
+    await this.sleep(1000);
+    let dataList = res.data.content;
+    this.setState({
+      dataList: dataList,
+      refreshState:
+        dataList.length < 1 ? RefreshState.EmptyData : RefreshState.Idle
+    });
+  }
+  //滑动加载更多
+  async onFooterRefresh() {
+    this.setState({ refreshState: RefreshState.FooterRefreshing });
+    //获取测试数据
+    let res = await Axios.get("/accounts/frozen");
+    await this.sleep(1000);
+    let dataList = res.data.content;
+    this.setState({
+      dataList: dataList,
+      refreshState:
+        dataList.length > 1 ? RefreshState.NoMoreData : RefreshState.Idle
+    });
+  }
+  renderCell = data => {
+    return (
+      <View style={styles.loglist}>
+        <View style={styles.lineCom}>
+          <Text style={styles.txtName}>锁仓时间：</Text>
+          <Text style={styles.txtInfo}>{data.item.createTime}</Text>
+        </View>
+        <View style={styles.lineCom}>
+          <Text style={styles.txtName}>锁仓类型：</Text>
+          <Text style={styles.txtInfo}>{data.item.type}</Text>
+        </View>
+        <View style={styles.lineCom}>
+          <Text style={styles.txtName}>锁仓数量：</Text>
+          <Text style={[styles.txtInfo]}>
+            {new BigNumber(data.item.quantity).toFormat()} BGAA
+          </Text>
+        </View>
+      </View>
+    );
+  };
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
-
   render() {
     return (
       <View style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
@@ -41,7 +91,6 @@ class LockLog extends Component {
               <TouchableOpacity
                 onPress={() => {
                   Actions.pop();
-                  Picker.hide();
                 }}
               >
                 <Image
@@ -52,10 +101,7 @@ class LockLog extends Component {
               <Text style={styles.titleM}>锁仓记录</Text>
               <Text style={styles.titleR} />
             </View>
-
-            <TouchableOpacity
-              style={styles.dateChoose}
-            >
+            <TouchableOpacity style={styles.dateChoose}>
               <Text style={styles.dateShow}>{this.state.title}</Text>
               <Image
                 style={styles.arrow}
@@ -64,29 +110,22 @@ class LockLog extends Component {
             </TouchableOpacity>
           </ImageBackground>
         </View>
-        <ScrollView>
-          <View style={styles.loglist}>
-            <View style={styles.lineCom}>
-              <Text style={styles.txtName}>锁仓时间：</Text>
-              <Text style={styles.txtInfo}>2018-12-25</Text>
-            </View>
-            <View style={styles.lineCom}>
-              <Text style={styles.txtName}>锁仓类型：</Text>
-              <Text style={styles.txtInfo}>用户锁仓</Text>
-            </View>
-            <View style={styles.lineCom}>
-              <Text style={styles.txtName}>锁仓数量：</Text>
-              <Text style={[styles.txtInfo]}>
-                {new BigNumber(10000).toFormat()} BGAA
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
+        <RefreshListView
+          data={this.state.dataList}
+          renderItem={this.renderCell}
+          refreshState={this.state.refreshState}
+          onHeaderRefresh={this.onHeaderRefresh}
+          onFooterRefresh={this.onFooterRefresh}
+          // 可选
+          footerRefreshingText="玩命加载中 >.<"
+          footerFailureText="我擦嘞，居然失败了 =.=!"
+          footerNoMoreDataText="-我是有底线的-"
+          footerEmptyDataText="-好像什么东西都没有-"
+        />
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   itemBox: {
     width: Fit(750),
