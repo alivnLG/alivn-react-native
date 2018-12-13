@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Animated, Easing } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Animated,
+  Easing,
+  Platform
+} from "react-native";
 import Camera from "react-native-camera";
 import { Actions } from "react-native-router-flux";
 import Nav from "../Component/Nav";
@@ -10,7 +17,8 @@ export default class ScanCameraPage extends Component {
     this.state = {
       moveAnim: new Animated.Value(0),
       camera: {
-        aspect: Camera.constants.Aspect.fill
+        aspect: Camera.constants.Aspect.fill,
+        flashMode: Camera.constants.FlashMode.torch
       }
     };
     this.isBarcodeReceived = true;
@@ -30,6 +38,7 @@ export default class ScanCameraPage extends Component {
           }}
           style={styles.preview}
           aspect={this.state.camera.aspect}
+          flashMode={this.state.camera.flashMode}
           onBarCodeRead={this.barcodeReceived.bind(this)}
           barCodeTypes={[Camera.constants.BarCodeType.qr]}
         >

@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-torch')
     compile project(':react-native-camera')
     compile project(':realm')
     compile project(':react-native-fetch-blob')
