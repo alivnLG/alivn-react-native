@@ -18,7 +18,7 @@ export default class ScanCameraPage extends Component {
       moveAnim: new Animated.Value(0),
       camera: {
         aspect: Camera.constants.Aspect.fill,
-        flashMode: Camera.constants.FlashMode.torch
+        flashMode: Camera.constants.FlashMode.auto
       }
     };
     this.isBarcodeReceived = true;
