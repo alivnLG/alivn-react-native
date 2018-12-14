@@ -22,6 +22,12 @@ class LockLog extends Component {
       refreshState: RefreshState.Idle
     };
   }
+  type = {
+    USER: "用户锁仓",
+    V2: "系统锁仓V2",
+    V3: "系统锁仓V3",
+    ACTIVITY: "权证锁仓"
+  };
   componentDidMount() {
     this.onHeaderRefresh();
   }
@@ -34,27 +40,29 @@ class LockLog extends Component {
   async onHeaderRefresh() {
     this.setState({ refreshState: RefreshState.HeaderRefreshing });
     //获取数据
-    let res = await Axios.get("/accounts/frozen");
+    let res = await Axios.get("/accounts/frozen?page=0&size=10");
     await this.sleep(1000);
     let dataList = res.data.content;
     this.setState({
       dataList: dataList,
       refreshState:
-        dataList.length < 1 ? RefreshState.EmptyData : RefreshState.Idle
+      dataList.length < 1 ? RefreshState.EmptyData : RefreshState.Idle
     });
   }
   //滑动加载更多
+  page = 1;
   async onFooterRefresh() {
     this.setState({ refreshState: RefreshState.FooterRefreshing });
     //获取测试数据
-    let res = await Axios.get("/accounts/frozen");
+    let res = await Axios.get("/accounts/frozen?page="+this.page+"&size=10");
     await this.sleep(1000);
-    let dataList = res.data.content;
+    let dataList = this.state.dataList.concat(res.data.content);
     this.setState({
       dataList: dataList,
       refreshState:
-        dataList.length > 1 ? RefreshState.NoMoreData : RefreshState.Idle
+      dataList.length == res.data.totalElement ? RefreshState.NoMoreData : RefreshState.Idle
     });
+    this.page++
   }
   renderCell = data => {
     return (
@@ -65,7 +73,7 @@ class LockLog extends Component {
         </View>
         <View style={styles.lineCom}>
           <Text style={styles.txtName}>锁仓类型：</Text>
-          <Text style={styles.txtInfo}>{data.item.type}</Text>
+          <Text style={styles.txtInfo}>{this.type[data.item.type]}</Text>
         </View>
         <View style={styles.lineCom}>
           <Text style={styles.txtName}>锁仓数量：</Text>
@@ -114,8 +122,12 @@ class LockLog extends Component {
           data={this.state.dataList}
           renderItem={this.renderCell}
           refreshState={this.state.refreshState}
-          onHeaderRefresh={this.onHeaderRefresh}
-          onFooterRefresh={this.onFooterRefresh}
+          onHeaderRefresh={() => {
+            this.onHeaderRefresh();
+          }}
+          onFooterRefresh={() => {
+            this.onFooterRefresh();
+          }}
           // 可选
           footerRefreshingText="玩命加载中 >.<"
           footerFailureText="我擦嘞，居然失败了 =.=!"
