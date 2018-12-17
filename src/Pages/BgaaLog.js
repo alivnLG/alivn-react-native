@@ -11,7 +11,7 @@ import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 
-class Ethlog extends Component {
+class BgaaLog extends Component {
   constructor(props) {
     super(props);
   }
@@ -23,7 +23,7 @@ class Ethlog extends Component {
   render() {
     return (
       <View style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
-        <Nav leftType="icon" title="ETH记录" />
+        <Nav leftType="icon" title="BGAA记录" />
         <View style={{ backgroundColor: "#FFF", marginTop: Fit(20) }}>
           <TouchableOpacity style={styles.linkItem} onPress={Actions.locklog}>
             <Image
@@ -45,6 +45,17 @@ class Ethlog extends Component {
               source={require("../Resources/images/jylog.png")}
             />
             <Text style={styles.linkItemText}>交易记录</Text>
+            <Image
+              style={styles.linkItemIcon}
+              source={require("../Resources/images/right.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.linkItem} onPress={Actions.speedLog}>
+            <Image
+              style={styles.linkItemIcon}
+              source={require("../Resources/images/transferIcon1.png")}
+            />
+            <Text style={styles.linkItemText}>加速记录</Text>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/right.png")}
@@ -92,4 +103,4 @@ const styles = StyleSheet.create({
     width: Fit(43)
   }
 });
-module.exports = Ethlog;
+module.exports = BgaaLog;

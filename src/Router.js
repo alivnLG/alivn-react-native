@@ -40,6 +40,11 @@ import TransferBgaa from "./Pages/TransferBgaa";
 import TransferBgaaLog from "./Pages/TransferBgaaLog";
 import BgaaLog from "./Pages/BgaaLog";
 import MySpeed from "./Pages/MySpeed";
+import SpeedLog from "./Pages/SpeedLog";
+import ChargeEth from "./Pages/ChargeEth";
+import WithdrawEth from "./Pages/WithdrawEth";
+import ChargeEthLog from "./Pages/ChargeEthLog";
+import WithdrawEthLog from "./Pages/WithdrawEthLog";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -104,7 +109,7 @@ const router = (...props) => (
         <Stack
           hideNavBar
           key="钱包"
-          title="我的"
+          title="钱包"
           image={Images.Wallet}
           selectedImage={Images.aWallet}
         >
@@ -131,6 +136,11 @@ const router = (...props) => (
       <Scene component={TransferBgaaLog} key="transferBgaaLog" hideNavBar />
       <Scene component={BgaaLog} key="bgaaLog" hideNavBar />
       <Scene component={MySpeed} key="mySpeed" hideNavBar />
+      <Scene component={SpeedLog} key="speedLog" hideNavBar />
+      <Scene component={ChargeEth} key="chargeEth" hideNavBar />
+      <Scene component={WithdrawEth} key="withdrawEth" hideNavBar />
+      <Scene component={ChargeEthLog} key="chargeEthLog" hideNavBar />
+      <Scene component={WithdrawEthLog} key="withdrawEthLog" hideNavBar />
     </Stack>
   </Router>
 );
