@@ -36,7 +36,10 @@ import Forget from "./Pages/Forget";
 import Lock from "./Pages/Lock";
 import TransferEnter from "./Pages/TransferEnter";
 import LockLog from "./Pages/LockLog";
-import date from "./Pages/date";
+import TransferBgaa from "./Pages/TransferBgaa";
+import TransferBgaaLog from "./Pages/TransferBgaaLog";
+import BgaaLog from "./Pages/BgaaLog";
+import MySpeed from "./Pages/MySpeed";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -124,7 +127,10 @@ const router = (...props) => (
       <Scene component={Lock} key="lock" hideNavBar />
       <Scene component={LockLog} key="lockLog" hideNavBar />
       <Scene component={TransferEnter} key="transferEnter" hideNavBar />
-      <Scene component={date} key="date" hideNavBar />
+      <Scene component={TransferBgaa} key="transferBgaa" hideNavBar />
+      <Scene component={TransferBgaaLog} key="transferBgaaLog" hideNavBar />
+      <Scene component={BgaaLog} key="bgaaLog" hideNavBar />
+      <Scene component={MySpeed} key="mySpeed" hideNavBar />
     </Stack>
   </Router>
 );

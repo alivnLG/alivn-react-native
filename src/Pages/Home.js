@@ -117,7 +117,7 @@ class Home extends Component {
             />
             <Text style={styles.itemTxt}>转账BGAA</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={Actions.speed} style={styles.itemBtn}>
+          <TouchableOpacity onPress={Actions.mySpeed} style={styles.itemBtn}>
             <Image
               style={styles.operBtnImg}
               source={require("../Resources/images/operBtn3.png")}

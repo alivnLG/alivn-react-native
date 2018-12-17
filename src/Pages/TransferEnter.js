@@ -163,7 +163,7 @@ class TransferEnter extends Component {
                   onPress={() => {
                     const verData = submit(this);
                     if (verData) {
-                      Actions.transfer({ username: this.state.address });
+                      Actions.transferBgaa({ username: this.state.address });
                     }
                   }}
                 >

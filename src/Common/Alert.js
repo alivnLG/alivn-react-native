@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingLeft: Fit(30),
     paddingRight: Fit(30),
     borderRadius: 4,
-    backgroundColor: "rgba(66,211,103,0.6)",
+    backgroundColor: "#25c063",
 
     justifyContent: "center",
     alignItems: "center"

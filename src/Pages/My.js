@@ -93,7 +93,7 @@ class My extends Component {
               source={require("../Resources/images/right.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.linkItem} onPress={Actions.bgaalog}>
+          <TouchableOpacity style={styles.linkItem} onPress={Actions.bgaaLog}>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/bgaaicon.png")}

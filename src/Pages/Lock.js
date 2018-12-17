@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     paddingBottom: Fit(50)
   },
   txt: {
-    fontSize: Fit(26),
+    fontSize: Fit(22),
     color: "#9b9b9b",
     marginTop: Fit(8)
   },
