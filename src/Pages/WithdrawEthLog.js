@@ -13,7 +13,7 @@ import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Picker from "react-native-picker";
 import BigNumber from "bignumber.js";
 
-class Withdrawlog extends Component {
+class WithdrawEthLog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -304,4 +304,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Withdrawlog;
+module.exports = WithdrawEthLog;

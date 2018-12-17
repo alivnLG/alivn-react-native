@@ -71,7 +71,7 @@ class My extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              onPress={Actions.mycode}
+              onPress={Actions.myCode}
               style={styles.rightButton}
             >
               <Image
@@ -82,7 +82,7 @@ class My extends Component {
           </View>
         </View>
         <View style={{ backgroundColor: "#FFF" }}>
-          <TouchableOpacity style={styles.linkItem} onPress={Actions.ethlog}>
+          <TouchableOpacity style={styles.linkItem} onPress={Actions.ethLog}>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/ethicon.png")}
@@ -124,9 +124,9 @@ class My extends Component {
             onPress={() => {
               const userinfo = Store.getItem("userinfo");
               if (!userinfo.hasTradePwd) {
-                Actions.capitalpwd();
+                Actions.capitalPwd();
               } else {
-                Actions.updatecapitalpwd();
+                Actions.updateCapitalPwd();
               }
             }}
           >

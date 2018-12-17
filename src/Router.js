@@ -45,6 +45,10 @@ import ChargeEth from "./Pages/ChargeEth";
 import WithdrawEth from "./Pages/WithdrawEth";
 import ChargeEthLog from "./Pages/ChargeEthLog";
 import WithdrawEthLog from "./Pages/WithdrawEthLog";
+import EthLog from "./Pages/EthLog";
+import CapitalPwd from "./Pages/CapitalPwd";
+import UpdateCapitalPwd from "./Pages/UpdateCapitalPwd";
+import MyCode from "./Pages/MyCode";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -141,6 +145,10 @@ const router = (...props) => (
       <Scene component={WithdrawEth} key="withdrawEth" hideNavBar />
       <Scene component={ChargeEthLog} key="chargeEthLog" hideNavBar />
       <Scene component={WithdrawEthLog} key="withdrawEthLog" hideNavBar />
+      <Scene component={EthLog} key="ethLog" hideNavBar />
+      <Scene component={CapitalPwd} key="capitalPwd" hideNavBar />
+      <Scene component={UpdateCapitalPwd} key="updateCapitalPwd" hideNavBar />
+      <Scene component={MyCode} key="myCode" hideNavBar />
     </Stack>
   </Router>
 );
