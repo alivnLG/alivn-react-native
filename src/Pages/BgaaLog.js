@@ -25,7 +25,7 @@ class BgaaLog extends Component {
       <View style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
         <Nav leftType="icon" title="BGAA记录" />
         <View style={{ backgroundColor: "#FFF", marginTop: Fit(20) }}>
-          <TouchableOpacity style={styles.linkItem} onPress={Actions.locklog}>
+          <TouchableOpacity style={styles.linkItem} onPress={Actions.lockLog}>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/locklogIcon1.png")}
@@ -38,7 +38,7 @@ class BgaaLog extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.linkItem}
-            onPress={Actions.tradebuylog}
+            onPress={Actions.tradeBuyLog}
           >
             <Image
               style={styles.linkItemIcon}

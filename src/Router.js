@@ -49,6 +49,10 @@ import EthLog from "./Pages/EthLog";
 import CapitalPwd from "./Pages/CapitalPwd";
 import UpdateCapitalPwd from "./Pages/UpdateCapitalPwd";
 import MyCode from "./Pages/MyCode";
+import BuyBgaa from "./Pages/BuyBgaa";
+import SellBgaa from "./Pages/SellBgaa";
+import TradeBuyLog from "./Pages/TradeBuyLog";
+import TradeSellLog from "./Pages/TradeSellLog";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -149,6 +153,10 @@ const router = (...props) => (
       <Scene component={CapitalPwd} key="capitalPwd" hideNavBar />
       <Scene component={UpdateCapitalPwd} key="updateCapitalPwd" hideNavBar />
       <Scene component={MyCode} key="myCode" hideNavBar />
+      <Scene component={BuyBgaa} key="buyBgaa" hideNavBar />
+      <Scene component={SellBgaa} key="sellBgaa" hideNavBar />
+      <Scene component={TradeBuyLog} key="tradeBuyLog" hideNavBar />
+      <Scene component={TradeSellLog} key="tradeSellLog" hideNavBar />
     </Stack>
   </Router>
 );
