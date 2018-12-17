@@ -168,15 +168,13 @@ class LockLog extends Component {
               <Text style={styles.titleM}>锁仓记录</Text>
               <Text style={styles.titleR} />
             </View>
-            <TouchableOpacity style={styles.dateChoose}>
-              <Text
-                style={styles.dateShow}
-                onPress={() => {
-                  this._showTimePicker();
-                }}
-              >
-                {this.state.title}
-              </Text>
+            <TouchableOpacity
+              style={styles.dateChoose}
+              onPress={() => {
+                this._showTimePicker();
+              }}
+            >
+              <Text style={styles.dateShow}>{this.state.title}</Text>
               <Image
                 style={styles.arrow}
                 source={require("../Resources/images/arrowd.png")}
