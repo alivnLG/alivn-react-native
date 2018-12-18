@@ -124,7 +124,7 @@ class Home extends Component {
             />
             <Text style={styles.itemTxt}>我的加速</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={Actions.warrant} style={styles.itemBtn}>
+          <TouchableOpacity onPress={Actions.getWarrant} style={styles.itemBtn}>
             <Image
               style={styles.operBtnImg}
               source={require("../Resources/images/operBtn4.png")}

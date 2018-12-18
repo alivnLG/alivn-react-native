@@ -53,6 +53,8 @@ import BuyBgaa from "./Pages/BuyBgaa";
 import SellBgaa from "./Pages/SellBgaa";
 import TradeBuyLog from "./Pages/TradeBuyLog";
 import TradeSellLog from "./Pages/TradeSellLog";
+import BuyWarrant from "./Pages/BuyWarrant";
+import GetWarrant from "./Pages/GetWarrant";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -157,6 +159,8 @@ const router = (...props) => (
       <Scene component={SellBgaa} key="sellBgaa" hideNavBar />
       <Scene component={TradeBuyLog} key="tradeBuyLog" hideNavBar />
       <Scene component={TradeSellLog} key="tradeSellLog" hideNavBar />
+      <Scene component={BuyWarrant} key="buyWarrant" hideNavBar />
+      <Scene component={GetWarrant} key="getWarrant" hideNavBar />
     </Stack>
   </Router>
 );

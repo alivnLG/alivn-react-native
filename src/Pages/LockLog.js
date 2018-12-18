@@ -31,6 +31,10 @@ class LockLog extends Component {
     ACTIVITY: "权证锁仓"
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(nextState) != JSON.stringify(this.state);
+  }
+  
   componentDidMount() {
     this.onHeaderRefresh();
   }
@@ -142,9 +146,7 @@ class LockLog extends Component {
       </View>
     );
   };
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(nextState) != JSON.stringify(this.state);
-  }
+
   render() {
     return (
       <View style={[Common.container, { backgroundColor: "#f5f5f5" }]}>
