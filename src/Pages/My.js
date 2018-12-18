@@ -107,7 +107,7 @@ class My extends Component {
 
           <TouchableOpacity
             style={styles.linkItem}
-            onPress={Actions.WarrantNotLog}
+            onPress={Actions.warrantNotLog}
           >
             <Image
               style={styles.linkItemIcon}
