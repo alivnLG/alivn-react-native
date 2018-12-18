@@ -22,28 +22,25 @@ class GetWarrant extends Component {
   }
   payType = {
     RMB: {
-      name: "积分",
       payTxt: "积分"
     },
     AVAILABLE: {
-      name: "BGAA",
       payTxt: "可用BGAA"
     },
     TRANSFER: {
-      name: "BGAA",
       payTxt: "消费BGAA"
     },
     QQFROZEN: {
-      name: "BGAA",
       payTxt: "锁仓BGAA"
     },
     ETH: {
-      name: "ETH",
       payTxt: "ETH余额"
     },
     WARRANT: {
-      name: "BGAA",
       payTxt: "权证BGAA"
+    },
+    RMB_WARRANT: {
+      payTxt: "积分+权证BGAA"
     }
   };
   type = {
@@ -133,7 +130,6 @@ class GetWarrant extends Component {
             <Text style={styles.itemTxt1}>单价：</Text>
             <Text style={[styles.itemTxt2, { color: "#FFC000" }]}>
               {new BigNumber(data.item.price).toFormat()}{" "}
-              {this.payType[data.item.payType].name}
             </Text>
           </View>
           <View style={styles.itemDataInfo}>

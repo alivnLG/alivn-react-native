@@ -55,6 +55,10 @@ import TradeBuyLog from "./Pages/TradeBuyLog";
 import TradeSellLog from "./Pages/TradeSellLog";
 import BuyWarrant from "./Pages/BuyWarrant";
 import GetWarrant from "./Pages/GetWarrant";
+import WarrantNotLog from "./Pages/WarrantNotLog";
+import WarrantLog from "./Pages/WarrantLog";
+import SellWarrant from "./Pages/SellWarrant";
+import TransferWarrant from "./Pages/TransferWarrant";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -161,6 +165,10 @@ const router = (...props) => (
       <Scene component={TradeSellLog} key="tradeSellLog" hideNavBar />
       <Scene component={BuyWarrant} key="buyWarrant" hideNavBar />
       <Scene component={GetWarrant} key="getWarrant" hideNavBar />
+      <Scene component={WarrantNotLog} key="warrantNotLog" hideNavBar />
+      <Scene component={WarrantLog} key="warrantLog" hideNavBar />
+      <Scene component={SellWarrant} key="sellWarrant" hideNavBar />
+      <Scene component={TransferWarrant} key="transferWarrant" hideNavBar />
     </Stack>
   </Router>
 );
