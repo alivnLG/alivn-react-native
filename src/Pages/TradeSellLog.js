@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ImageBackground
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
@@ -31,7 +30,9 @@ class TradeSellLog extends Component {
   }
 
   componentDidMount() {
-    this.onHeaderRefresh();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+    });
   }
 
   //选择时间

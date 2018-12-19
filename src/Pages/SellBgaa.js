@@ -9,7 +9,6 @@ import {
   ImageBackground,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import { validate, submit, getErrorsInField } from "../Common/validate";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
@@ -29,8 +28,10 @@ class Sellbgaa extends Component {
   }
 
   componentDidMount() {
-    this._getAccounts();
-    this._getconfigs();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getAccounts();
+      this._getconfigs();
+    });
   }
 
   _getAccounts() {

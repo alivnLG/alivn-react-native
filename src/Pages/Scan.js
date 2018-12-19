@@ -8,7 +8,6 @@ import {
   Platform
 } from "react-native";
 import Camera from "react-native-camera";
-import { Actions } from "react-native-router-flux";
 import Nav from "../Component/Nav";
 class Scan extends Component {
   constructor(props) {
@@ -25,7 +24,9 @@ class Scan extends Component {
   }
 
   componentDidMount() {
-    this.startAnimation();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.startAnimation();
+    });
   }
 
   render() {

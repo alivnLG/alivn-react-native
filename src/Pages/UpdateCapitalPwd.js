@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import { validate, submit, getErrorsInField } from "../Common/validate";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
@@ -32,7 +31,9 @@ class UpdateCapitalPwd extends Component {
   }
 
   componentDidMount() {
-    this._getUserinfo();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getUserinfo();
+    });
   }
 
   _getUserinfo() {

@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 

@@ -9,7 +9,6 @@ import {
   ImageBackground,
   Clipboard
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import QRCode from "react-native-qrcode";
 import Common from "../styles/Common";
 import { validate, getErrorsInField, submit } from "../Common/validate";

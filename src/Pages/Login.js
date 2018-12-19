@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Axios from "axios";
 import { validate, submit, getErrorsInField } from "../Common/validate";
@@ -20,9 +19,13 @@ class Login extends Component {
       secureTextEntry: true
     };
   }
+
   componentDidMount() {
-    Store.setItem("userinfo", {});
+    this.props.navigation.addListener("willFocus", payload => {
+      Store.setItem("userinfo", {});
+    });
   }
+
   _postData() {
     Store.setItem("userinfo", {});
     Axios.post("/login", this.state).then(function(res) {

@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
@@ -28,8 +27,10 @@ class WarrantNotLog extends Component {
   }
 
   componentDidMount() {
-    this.onHeaderRefresh();
-    this._getTotalY();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+      this._getTotalY();
+    });
   }
 
   _getTotalY() {

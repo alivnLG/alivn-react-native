@@ -9,7 +9,6 @@ import {
   ImageBackground,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import { validate, submit, getErrorsInField } from "../Common/validate";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
@@ -68,7 +67,9 @@ class BuyWarrant extends Component {
   };
 
   componentDidMount() {
-    this._getInfo();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getInfo();
+    });
   }
 
   _getInfo() {

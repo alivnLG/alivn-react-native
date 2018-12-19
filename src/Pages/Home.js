@@ -9,7 +9,6 @@ import {
   AsyncStorage,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
 class Home extends Component {
@@ -24,11 +23,20 @@ class Home extends Component {
       noticeStoreSize: Store.getItem("noticeStoreSize")
     };
   }
+  //控制是否渲染刷新
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.state) != JSON.stringify(nextState);
+  }
   //组件渲染完成
   componentDidMount() {
-    this._getData();
-    this._getConfigs();
-    this._getNoticeSize();
+    this.props.navigation.addListener(
+      'willFocus',
+      payload => {
+        this._getData();
+        this._getConfigs();
+        this._getNoticeSize();
+      }
+    );
   }
   _getConfigs() {
     Axios.get("/configs").then(res => {
@@ -58,10 +66,7 @@ class Home extends Component {
       });
     });
   }
-  //控制是否渲染刷新
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.state) != JSON.stringify(nextState);
-  }
+
   render() {
     console.log(111);
     return (
@@ -76,7 +81,7 @@ class Home extends Component {
               <Text style={styles.txt2}>这是您的BGAA全部资产</Text>
             </View>
             <TouchableOpacity
-              onPress={Actions.noticelist}
+              onPress={Actions.noticeList}
               style={styles.newsInfo}
             >
               {this.state.noticeSize > this.state.noticeStoreSize ? (

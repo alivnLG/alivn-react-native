@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import { validate, submit, getErrorsInField } from "../Common/validate";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
@@ -24,9 +23,12 @@ class TransferWarrant extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this._getInfo();
-    this._getconfigs();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getInfo();
+      this._getconfigs();
+    });
   }
 
   _getconfigs() {
@@ -103,7 +105,7 @@ class TransferWarrant extends Component {
                 const userinfo = Store.getItem("userinfo");
                 if (!userinfo.hasTradePwd) {
                   Confirm.confirm({
-                    icon:"info",
+                    icon: "info",
                     msg: "未设置资金密码，点击确认前往设置！",
                     cancelTxt: "取消",
                     okTxt: "确认",

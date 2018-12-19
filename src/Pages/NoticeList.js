@@ -25,7 +25,9 @@ class Noticelist extends Component {
   }
 
   componentDidMount() {
-    this.onHeaderRefresh();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+    });
   }
 
   async sleep(duration) {

@@ -16,8 +16,11 @@ class TransferBgaaLog extends Component {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
   componentDidMount() {
-    this.onHeaderRefresh();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+    });
   }
+
   async sleep(duration) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration);
@@ -127,9 +130,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row"
   },
-  lineRight: {
-    
-  },
+  lineRight: {},
   avatar: {
     width: Fit(113),
     height: Fit(113),

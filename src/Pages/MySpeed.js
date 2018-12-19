@@ -8,7 +8,6 @@ import {
   ImageBackground,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
@@ -27,8 +26,11 @@ class MySpeed extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this._getInfo();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getInfo();
+    });
   }
 
   changType(type) {

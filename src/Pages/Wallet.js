@@ -7,7 +7,6 @@ import {
   ImageBackground,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import BigNumber from "bignumber.js";
@@ -20,8 +19,11 @@ class Wallet extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this._getAccounts();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getAccounts();
+    });
   }
 
   _getAccounts() {

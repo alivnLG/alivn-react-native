@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import BigNumber from "bignumber.js";
@@ -26,10 +25,13 @@ class TransferBgaa extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this._getUserInfo();
-    this._getAccounts();
-    this._getconfigs();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getUserInfo();
+      this._getAccounts();
+      this._getconfigs();
+    });
   }
   _getconfigs() {
     Axios.get("/configs").then(res => {
@@ -67,10 +69,6 @@ class TransferBgaa extends Component {
         }
       });
     });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
 
   render() {

@@ -21,9 +21,13 @@ class MyCode extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this._getInfo();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getInfo();
+    });
   }
+
   _getInfo() {
     Axios.get("/users/invitation").then(res => {
       this.setState({ invitation: res.data.invitation });

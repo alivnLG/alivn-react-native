@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ImageBackground
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Picker from "react-native-picker";
@@ -30,7 +29,9 @@ class WithdrawEthLog extends Component {
   }
 
   componentDidMount() {
-    this.onHeaderRefresh();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+    });
   }
 
   //选择时间

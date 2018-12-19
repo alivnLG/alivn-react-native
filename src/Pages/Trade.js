@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Image
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
@@ -21,7 +20,9 @@ class Trade extends Component {
   }
 
   componentDidMount() {
-    this.onHeaderRefresh();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.onHeaderRefresh();
+    });
   }
 
   async sleep(duration) {

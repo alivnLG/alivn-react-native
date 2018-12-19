@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import BigNumber from "bignumber.js";
@@ -20,13 +19,19 @@ class Lock extends Component {
       frozen: ""
     };
   }
-  componentDidMount() {
-    this._getconfigs();
-    this._getAccounts();
-  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
+  componentDidMount() {
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getconfigs();
+      this._getAccounts();
+    });
+  }
+
+
   _getconfigs() {
     Axios.get("/accounts/quota").then(res => {
       this.setState({ quota: res.data });

@@ -8,7 +8,6 @@ import {
   Clipboard,
   ScrollView
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 class My extends Component {
   constructor(props) {
@@ -18,10 +17,18 @@ class My extends Component {
     };
   }
 
+  //控制是否渲染刷新
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.state) != JSON.stringify(nextState);
+  }
+
   //组件渲染完成
   componentDidMount() {
-    this._getData();
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getData();
+    });
   }
+
   _getData() {
     Axios.get("/users/info").then(res => {
       this.setState({
@@ -31,7 +38,7 @@ class My extends Component {
   }
   _contactUs() {
     Confirm.confirm({
-      icon:"info",
+      icon: "info",
       msg:
         "如有问题或建议反馈给我们，这将帮助我们持续改进。邮箱:contactus@bgaa.vip"
     });
@@ -45,10 +52,6 @@ class My extends Component {
         Actions.reset("login");
       }
     });
-  }
-  //控制是否渲染刷新
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(this.state) != JSON.stringify(nextState);
   }
 
   render() {

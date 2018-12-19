@@ -10,7 +10,6 @@ import {
   ScrollView,
   ActivityIndicator
 } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
 import QRCode from "react-native-qrcode";
@@ -29,8 +28,11 @@ class ChargeEth extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
   }
+
   componentDidMount() {
-    this.getList();
+    this.props.navigation.addListener("willFocus", payload => {
+      this.getList();
+    });
   }
 
   getList() {
