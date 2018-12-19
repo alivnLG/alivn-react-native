@@ -16,6 +16,8 @@ class WarrantNotLog extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      total: 0,
+      totalY: 0,
       dataList: [],
       refreshState: RefreshState.Idle
     };
@@ -27,8 +29,14 @@ class WarrantNotLog extends Component {
 
   componentDidMount() {
     this.onHeaderRefresh();
+    this._getTotalY();
   }
 
+  _getTotalY() {
+    Axios.get("/activitys/logs/size").then(res => {
+      this.setState({ totalY: res.data.size });
+    });
+  }
   async sleep(duration) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, duration);
@@ -42,6 +50,7 @@ class WarrantNotLog extends Component {
     await this.sleep(1000);
     let dataList = res.data.content;
     this.setState({
+      total: res.data.totalElement,
       dataList: dataList,
       refreshState:
         dataList.length < 1 ? RefreshState.EmptyData : RefreshState.Idle
@@ -194,16 +203,20 @@ class WarrantNotLog extends Component {
         <Nav leftType="icon" title="权证记录" />
         <View style={styles.nav}>
           <View style={styles.navItem}>
-            <Text style={[styles.navText, { color: "#3CD168" }]}>未使用</Text>
+            <Text style={[styles.navText, { color: "#3CD168" }]}>
+              未使用（{this.state.total}）
+            </Text>
             <View style={styles.navLine} />
           </View>
           <TouchableOpacity
             style={styles.navItem}
             onPress={() => {
-              Actions.warrantLog();
+              Actions.warrantLog({ total: this.state.total });
             }}
           >
-            <Text style={[styles.navText, { color: "#666" }]}>已使用</Text>
+            <Text style={[styles.navText, { color: "#666" }]}>
+              已使用（{this.state.totalY}）
+            </Text>
           </TouchableOpacity>
         </View>
         <RefreshListView

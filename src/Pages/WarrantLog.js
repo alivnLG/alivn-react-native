@@ -16,6 +16,7 @@ class WarrantLog extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      totalY: 0,
       dataList: [],
       refreshState: RefreshState.Idle
     };
@@ -61,6 +62,7 @@ class WarrantLog extends Component {
     await this.sleep(1000);
     let dataList = res.data.content;
     this.setState({
+      totalY: res.data.totalElement,
       dataList: dataList,
       refreshState:
         dataList.length < 1 ? RefreshState.EmptyData : RefreshState.Idle
@@ -125,10 +127,14 @@ class WarrantLog extends Component {
               Actions.warrantNotLog();
             }}
           >
-            <Text style={[styles.navText, { color: "#666" }]}>未使用</Text>
+            <Text style={[styles.navText, { color: "#666" }]}>
+              未使用（{this.props.total}）
+            </Text>
           </TouchableOpacity>
           <View style={styles.navItem}>
-            <Text style={[styles.navText, { color: "#3CD168" }]}>已使用</Text>
+            <Text style={[styles.navText, { color: "#3CD168" }]}>
+              已使用（{this.state.totalY}）
+            </Text>
             <View style={styles.navLine} />
           </View>
         </View>
