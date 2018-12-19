@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
   ImageBackground,
   Image
 } from "react-native";
@@ -11,7 +12,7 @@ import { Actions } from "react-native-router-flux";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Common from "../styles/Common";
 import BigNumber from "bignumber.js";
-class Trade extends Component {
+class TradeWarrant extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +34,7 @@ class Trade extends Component {
   async onHeaderRefresh() {
     this.setState({ refreshState: RefreshState.HeaderRefreshing });
     //获取数据
-    let res = await Axios.get("/cabinets?page=0&size=10");
+    let res = await Axios.get("/activitys/sales?page=0&size=10");
     await this.sleep(1000);
     let dataList = res.data.content;
     this.setState({
@@ -47,7 +48,9 @@ class Trade extends Component {
   async onFooterRefresh() {
     this.setState({ refreshState: RefreshState.FooterRefreshing });
     //获取测试数据
-    let res = await Axios.get("/cabinets?page=" + this.page + "&size=10");
+    let res = await Axios.get(
+      "/activitys/sales?page=" + this.page + "&size=10"
+    );
     await this.sleep(1000);
     let dataList = this.state.dataList.concat(res.data.content);
     this.setState({
@@ -60,111 +63,91 @@ class Trade extends Component {
     this.page++;
   }
 
+  async _buyPost(data) {
+    Axios.get("/switchs/tradeCode").then(res => {
+      if (!res.data.status) {
+        confirm.confirm({
+          icon: "info",
+          msg: res.data.msg,
+          cancelTxt: "返回"
+        });
+      } else {
+        const self = this;
+        Confirm.confirm({
+          msg: "确定要购买当前权证吗？",
+          onOk: () => {
+            const userinfo = Store.getItem("userinfo");
+            if (!userinfo.hasTradePwd) {
+              Confirm.confirm({
+                msg: "未设置资金密码，点击确认前往设置！",
+                cancelTxt: "取消",
+                okTxt: "确认",
+                onOk() {
+                  Actions.capitalPwd();
+                }
+              });
+            } else {
+              tradePassword({
+                msg: `提交前请确认交易信息`,
+                success(res) {
+                  self.tradePassword = res;
+                  Axios.post(`/activitys/${data.id}/trade`, {
+                    tradePassword: self.tradePassword
+                  }).then(res => {
+                    Alert.alert({
+                      icon: "success",
+                      msg: "购买成功",
+                      onClose() {
+                        self.onHeaderRefresh();
+                      }
+                    });
+                  });
+                }
+              });
+            }
+          }
+        });
+      }
+    });
+  }
+
   renderCell = data => {
     return (
       <View style={styles.itemList}>
-        <Text
-          style={[
-            styles.itemStatus,
-            data.item.status == "END" ? { color: "#999" } : ""
-          ]}
-        >
-          {data.item.status == "ACTIVE" ? "进行中" : "已完成"}
-        </Text>
         <View style={styles.itemData}>
+          <Image
+            style={styles.itembg}
+            source={require("../Resources/images/TradeWarrantBg.jpg")}
+          />
           <View style={styles.itemDataInfo}>
-            <View style={[styles.point, { backgroundColor: "#F3F3F3" }]} />
-            <Text style={styles.itemTxt1}>交易总额：</Text>
-            <Text style={styles.itemTxt2}>
-              {new BigNumber(data.item.quantity).toFormat()} BGAA
+            <Text style={styles.itemTxt1}>名称：</Text>
+            <Text style={styles.itemTxt2}>{data.item.name}</Text>
+          </View>
+          <View style={styles.itemDataInfo}>
+            <Text style={styles.itemTxt1}>价格：</Text>
+            <Text style={[styles.itemTxt2, { color: "#FF6F06" }]}>
+              {new BigNumber(data.item.price).toFormat()}
             </Text>
           </View>
           <View style={styles.itemDataInfo}>
-            <View style={[styles.point, { backgroundColor: "#FF9800" }]} />
-            <Text style={styles.itemTxt1}>购买总量：</Text>
-            <Text style={styles.itemTxt2}>
-              {new BigNumber(data.item.bid).toFormat()} BGAA
-            </Text>
+            <Text style={styles.itemTxt1}>支付方式：</Text>
+            <Text style={styles.itemTxt2}>可用BGAA</Text>
           </View>
           <View style={styles.itemDataInfo}>
-            <View style={[styles.point, { backgroundColor: "#66CE23" }]} />
-            <Text style={styles.itemTxt1}>总成交量：</Text>
-            <Text style={styles.itemTxt2}>
-              {new BigNumber(data.item.ask).toFormat()} BGAA
-            </Text>
+            <Text style={styles.itemTxt1}>可得锁仓量：</Text>
+            <Text style={styles.itemTxt2}>{data.item.frozen}BGAA</Text>
           </View>
-          <View style={styles.itemDataInfo}>
-            <View style={[styles.pointS]} />
-            <Text style={styles.itemTxt1}>开始时间：</Text>
-            <Text style={styles.itemTxt2}>{data.item.startTime}</Text>
-          </View>
-          {data.item.status == "ACTIVE" ? null : (
-            <View style={styles.itemDataInfo}>
-              <View style={[styles.pointS]} />
-              <Text style={styles.itemTxt1}>结束时间：</Text>
-              <Text style={styles.itemTxt2}>{data.item.endTime}</Text>
-            </View>
-          )}
         </View>
-        {data.item.status == "ACTIVE" ? (
-          <View>
-            <View style={styles.barOuter}>
-              <View
-                style={[
-                  styles.barLine,
-                  {
-                    backgroundColor: "#FF9800",
-                    width: (data.item.bid / data.item.quantity) * 100 + "%",
-                    zIndex: 2
-                  }
-                ]}
-              />
-              <View
-                style={[
-                  styles.barLine,
-                  {
-                    backgroundColor: "#66CE23",
-                    width: (data.item.ask / data.item.quantity) * 100 + "%",
-                    zIndex: 3
-                  }
-                ]}
-              />
-            </View>
-            <View style={styles.itemOper}>
-              {data.item.quantity > data.item.bid ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    Actions.buyBgaa({
-                      mdsNum: new BigNumber(data.item.quantity).minus(
-                        data.item.bid
-                      ),
-                      id: data.item.id
-                    });
-                  }}
-                  style={[styles.operBtn, { backgroundColor: "#FA5F5A" }]}
-                >
-                  <Text style={styles.operTxt}>发布购买</Text>
-                </TouchableOpacity>
-              ) : (
-                <View />
-              )}
-              <TouchableOpacity
-                onPress={() => {
-                  Actions.sellBgaa({
-                    zesNum: data.item.quantity,
-                    zssNum: new BigNumber(data.item.bid).minus(data.item.ask),
-                    id: data.item.id
-                  });
-                }}
-                style={[styles.operBtn, { backgroundColor: "#30B91B" }]}
-              >
-                <Text style={styles.operTxt}>出售BGAA</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ) : (
-          <View />
-        )}
+        <View style={styles.itemOper}>
+          <TouchableOpacity
+            onPress={() => {
+              this._buyPost(data.item);
+            }}
+            style={[styles.operBtn, { backgroundColor: "#30B91B" }]}
+          >
+            <Text style={styles.operTxt}>购买权证</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -182,15 +165,13 @@ class Trade extends Component {
               style={styles.headerLine}
               source={require("../Resources/images/line2.png")}
             />
-            <Text style={[styles.tabTxt, styles.active]}>BGAA交易</Text>
-            <Text
-              onPress={() => Actions.tradeWarrant()}
-              style={[styles.tabTxt]}
-            >
-              权证交易
+            <Text onPress={() => Actions.trade()} style={[styles.tabTxt]}>
+              BGAA交易
             </Text>
+            <Text style={[styles.tabTxt, styles.active]}>权证交易</Text>
           </View>
         </ImageBackground>
+
         <RefreshListView
           data={this.state.dataList}
           renderItem={this.renderCell}
@@ -207,6 +188,20 @@ class Trade extends Component {
           footerNoMoreDataText="-我是有底线的-"
           footerEmptyDataText="-好像什么东西都没有-"
         />
+
+        <TouchableOpacity
+          style={styles.sellBtn}
+          onPress={() => {
+            Actions.warrantNotLog();
+          }}
+        >
+          <Image
+            style={styles.sellEnter}
+            source={require("../Resources/images/sellEnter.png")}
+          />
+          <Text style={styles.sellTxt}>出售</Text>
+          <Text style={styles.sellTxt}>权证</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -246,7 +241,6 @@ const styles = StyleSheet.create({
     paddingBottom: Fit(5),
     fontSize: Fit(28)
   },
-
   active: {
     color: "#fff",
     borderBottomColor: "#fff",
@@ -266,6 +260,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginTop: Fit(20)
   },
+  itembg: {
+    position: "absolute",
+    bottom: -Fit(30),
+    left: 0,
+    width: Fit(750),
+    height: Fit(55)
+  },
   itemStatus: {
     fontSize: Fit(28),
     paddingTop: Fit(15),
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
     textAlign: "right"
   },
   itemData: {
+    position: "relative",
     marginTop: Fit(25),
     paddingLeft: Fit(30),
     paddingRight: Fit(30),
@@ -288,16 +290,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: Fit(10)
-  },
-  point: {
-    width: Fit(14),
-    height: Fit(14),
-    borderRadius: Fit(14)
-  },
-  pointS: {
-    width: Fit(14),
-    height: Fit(14),
-    borderRadius: Fit(14)
   },
   itemTxt1: {
     marginLeft: Fit(10),
@@ -347,6 +339,26 @@ const styles = StyleSheet.create({
   operTxt: {
     color: "#fff",
     fontSize: Fit(24)
+  },
+  sellBtn: {
+    position: "absolute",
+    bottom: Fit(30),
+    right: Fit(30),
+    width: Fit(102),
+    height: Fit(102),
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  sellEnter: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: Fit(102),
+    height: Fit(102)
+  },
+  sellTxt: {
+    color: "#fff",
+    fontSize: Fit(20)
   }
 });
-module.exports = Trade;
+module.exports = TradeWarrant;
