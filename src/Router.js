@@ -120,7 +120,8 @@ const router = (...props) => (
           image={Images.Trade}
           selectedImage={Images.aTrade}
         >
-          <Scene component={Trade} key="trade" />
+          <Scene component={Trade} key="trade" hideNavBar />
+          <Scene component={TradeWarrant} key="tradeWarrant" hideNavBar />
         </Stack>
         <Stack
           hideNavBar
