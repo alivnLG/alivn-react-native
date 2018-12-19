@@ -143,7 +143,7 @@ class My extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.linkItem}
-            onPress={Actions.noticelist}
+            onPress={Actions.noticeList}
           >
             <Image
               style={styles.linkItemIcon}
