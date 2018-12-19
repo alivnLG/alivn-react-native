@@ -99,14 +99,11 @@ class TransferWarrant extends Component {
             onPress={() => {
               const self = this;
               const verData = submit(this);
-              // if (verData) {
-              //   this._postTransferwarrant();
-              // }
-
               if (verData) {
                 const userinfo = Store.getItem("userinfo");
                 if (!userinfo.hasTradePwd) {
                   Confirm.confirm({
+                    icon:"info",
                     msg: "未设置资金密码，点击确认前往设置！",
                     cancelTxt: "取消",
                     okTxt: "确认",
@@ -115,10 +112,11 @@ class TransferWarrant extends Component {
                     }
                   });
                 } else {
-                  tradePassword({
+                  TradePannel.tradePannel({
+                    title: "请输入资金密码",
                     msg: `转让将扣除${this.state.configs.transCodeRate *
                       100}%手续费`,
-                    success(res) {
+                    onOk: res => {
                       self.tradePassword = res;
                       self._postTransferwarrant();
                     }

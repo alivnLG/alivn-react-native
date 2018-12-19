@@ -66,7 +66,7 @@ class TradeWarrant extends Component {
   async _buyPost(data) {
     Axios.get("/switchs/tradeCode").then(res => {
       if (!res.data.status) {
-        confirm.confirm({
+        Confirm.confirm({
           icon: "info",
           msg: res.data.msg,
           cancelTxt: "返回"
@@ -74,11 +74,13 @@ class TradeWarrant extends Component {
       } else {
         const self = this;
         Confirm.confirm({
+          icon:"info",
           msg: "确定要购买当前权证吗？",
           onOk: () => {
             const userinfo = Store.getItem("userinfo");
             if (!userinfo.hasTradePwd) {
               Confirm.confirm({
+                icon:"info",
                 msg: "未设置资金密码，点击确认前往设置！",
                 cancelTxt: "取消",
                 okTxt: "确认",
@@ -87,9 +89,10 @@ class TradeWarrant extends Component {
                 }
               });
             } else {
-              tradePassword({
+              TradePannel.tradePannel({
+                title: "请输入资金密码",
                 msg: `提交前请确认交易信息`,
-                success(res) {
+                onOk: res => {
                   self.tradePassword = res;
                   Axios.post(`/activitys/${data.id}/trade`, {
                     tradePassword: self.tradePassword
@@ -97,7 +100,7 @@ class TradeWarrant extends Component {
                     Alert.alert({
                       icon: "success",
                       msg: "购买成功",
-                      onClose() {
+                      onClose:()=> {
                         self.onHeaderRefresh();
                       }
                     });

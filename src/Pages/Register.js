@@ -69,7 +69,7 @@ class Register extends Component {
   _postData() {
     Axios.post("/register", this.state).then(res => {
       Alert.alert({
-        icon: "info",
+        icon: "success",
         msg: "注册成功！",
         onClose: () => {
           Store.setItem("userinfo", res.data);

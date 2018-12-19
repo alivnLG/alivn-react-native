@@ -161,7 +161,10 @@ class Home extends Component {
               </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={Actions.mySpeed} style={styles.itemAccount}>
+          <TouchableOpacity
+            onPress={Actions.mySpeed}
+            style={styles.itemAccount}
+          >
             <View style={styles.itemAccountName}>
               <Image
                 style={styles.itemAccountImg}

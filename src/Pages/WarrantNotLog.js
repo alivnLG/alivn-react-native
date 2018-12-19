@@ -129,7 +129,7 @@ class WarrantNotLog extends Component {
                         Alert.alert({
                           icon: "success",
                           msg: "取消成功",
-                          onClose: function() {
+                          onClose: ()=> {
                             self.onHeaderRefresh();
                           }
                         });

@@ -31,13 +31,14 @@ class My extends Component {
   }
   _contactUs() {
     Confirm.confirm({
+      icon:"info",
       msg:
         "如有问题或建议反馈给我们，这将帮助我们持续改进。邮箱:contactus@bgaa.vip"
     });
   }
   _logOut() {
     Confirm.confirm({
-      icon: "logout",
+      icon: "info",
       msg: "退出后不会删除任何历史数据，下次登录依然可以使用本账号。",
       onOk: () => {
         Store.setItem("userinfo", {});

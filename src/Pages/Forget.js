@@ -47,7 +47,7 @@ class Forget extends Component {
   _postData() {
     Axios.post("/updatePassword", this.state).then(res => {
       Alert.alert({
-        icon: "info",
+        icon: "success",
         msg: "密码更新成功，请重新登录！",
         onClose: () => {
           Actions.reset("login");

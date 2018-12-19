@@ -54,8 +54,8 @@ class TransferBgaa extends Component {
       quantity: this.state.quantity,
       tradePassword: this.tradePassword
     }).then(res => {
-      confirm({
-        info: "success",
+      Confirm.confirm({
+        icon: "success",
         msg: "转账成功！",
         cancelTxt: "返回",
         okTxt: "立即查看",
@@ -63,7 +63,7 @@ class TransferBgaa extends Component {
           Actions.pop();
         },
         onOk: () => {
-          Actions.transferlog();
+          Actions.transferBgaaLog();
         }
       });
     });
@@ -127,21 +127,21 @@ class TransferBgaa extends Component {
               if (verData) {
                 const userinfo = Store.getItem("userinfo");
                 if (!userinfo.hasTradePwd) {
-                  confirm({
+                  Confirm.confirm({
                     msg: "未设置资金密码，点击确认前往设置！",
                     cancelMsg: "取消",
                     okMsg: "确认",
-                    cancel() {},
-                    ok() {
-                      Actions.capitalpwd();
+                    onOk:()=> {
+                      Actions.capitalPwd();
                     }
                   });
                 } else {
-                  tradePassword({
+                  TradePannel.tradePannel({
+                    title: "请输入资金密码",
                     msg: `额外扣除${(
                       this.state.transferRate * this.state.quantity
                     ).toFixed(8)}BGAA的手续费`,
-                    success(res) {
+                    onOk: res => {
                       self.tradePassword = res;
                       self._postData();
                     }

@@ -77,7 +77,7 @@ class UpdateCapitalPwd extends Component {
       Alert.alert({
         icon: "success",
         msg: "密码更新成功！",
-        onClose: function() {
+        onClose: ()=> {
           Actions.pop();
         }
       });

@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   lineRight: {
-    textAlign: "right"
+    
   },
   avatar: {
     width: Fit(113),

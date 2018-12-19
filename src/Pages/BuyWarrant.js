@@ -84,7 +84,7 @@ class BuyWarrant extends Component {
       Alert.alert({
         icon: "success",
         msg: "抢购成功！",
-        onClose: function() {
+        onClose: ()=> {
           Actions.pop();
         }
       });

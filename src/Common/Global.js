@@ -12,6 +12,8 @@ import { Theme, Toast } from "teaset";
 import Axios from "./Axios";
 //realm本地存储
 import Store from "./Store";
+// TradePannel弹框
+import TradePannel from "./TradePannel";
 // Alert弹框
 import Alert from "./Alert";
 //Confirm弹窗
@@ -44,6 +46,8 @@ global.Theme = Theme;
 global.Axios = Axios;
 //realm本地存储
 global.Store = Store;
+//TradePannel弹窗
+global.TradePannel = TradePannel;
 //Alert弹窗
 global.Alert = Alert;
 //Confirm弹窗

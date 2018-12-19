@@ -97,9 +97,7 @@ class SellWarrant extends Component {
                   }}
                 />
               </View>
-              <Text style={Common.errMsg}>
-                {getErrorsInField("quantityX")}
-              </Text>
+              <Text style={Common.errMsg}>{getErrorsInField("quantityX")}</Text>
             </View>
             <Image
               style={styles.itemimg}
@@ -117,6 +115,7 @@ class SellWarrant extends Component {
               const userinfo = Store.getItem("userinfo");
               if (!userinfo.hasTradePwd) {
                 Confirm.confirm({
+                  icon:"info",
                   msg: "未设置资金密码，点击确认前往设置！",
                   cancelTxt: "取消",
                   okTxt: "确认",
@@ -125,10 +124,11 @@ class SellWarrant extends Component {
                   }
                 });
               } else {
-                tradePassword({
+                TradePannel.tradePannel({
+                  title: "请输入资金密码",
                   msg: `权证出售成交时会扣除${this.state.configs.tradeCodeRate *
                     100}%手续费`,
-                  success(res) {
+                  onOk: res => {
                     self.tradePassword = res;
                     self._postSellWarrant();
                   }
