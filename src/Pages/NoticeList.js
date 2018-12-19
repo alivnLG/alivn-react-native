@@ -73,7 +73,7 @@ class Noticelist extends Component {
         <TouchableOpacity
           underlayColor="#18a304"
           onPress={() => {
-            Actions.noticeinfo({ id: data.item.id });
+            Actions.noticeInfo({ id: data.item.id });
           }}
         >
           <View style={[styles.lineCom, styles.lineComy]}>

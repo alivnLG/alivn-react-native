@@ -62,6 +62,7 @@ import TransferWarrant from "./Pages/TransferWarrant";
 import TradeWarrant from "./Pages/TradeWarrant";
 import WithdrawInfo from "./Pages/WithdrawInfo";
 import NoticeList from "./Pages/NoticeList";
+import NoticeInfo from "./Pages/NoticeInfo";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -176,6 +177,7 @@ const router = (...props) => (
       <Scene component={TradeWarrant} key="tradeWarrant" hideNavBar />
       <Scene component={WithdrawInfo} key="withdrawInfo" hideNavBar />
       <Scene component={NoticeList} key="noticeList" hideNavBar />
+      <Scene component={NoticeInfo} key="noticeInfo" hideNavBar />
     </Stack>
   </Router>
 );

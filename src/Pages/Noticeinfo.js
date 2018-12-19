@@ -4,11 +4,10 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  WebView,
+  WebView
 } from "react-native";
-import { axios } from "../utils";
-import { Common } from "../styles";
-import Nav from "../components/Nav";
+import Common from "../styles/Common";
+import Nav from "../Component/Nav";
 
 const BaseScript = `
     (function () {
@@ -33,11 +32,20 @@ class Noticeifo extends Component {
   constructor(props) {
     super(props);
     this.state = { info: {}, notice: "", height: 0, width: 0 };
-    this._getNoticeInfo();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(nextState) != JSON.stringify(this.state);
+  }
+
+  componentDidMount() {
+    this.props.navigation.addListener("willFocus", payload => {
+      this._getNoticeInfo();
+    });
   }
 
   _getNoticeInfo() {
-    axios.get("/notices/" + this.props.id).then(res => {
+    Axios.get("/notices/" + this.props.id).then(res => {
       this.setState({
         info: res.data,
         notice: res.data.content
@@ -55,14 +63,10 @@ class Noticeifo extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState){
-    return JSON.stringify(nextState) != JSON.stringify(this.state);
-  }
-
   render() {
     return (
       <View style={Common.container}>
-        <Nav title="公告详情" />
+        <Nav leftType="icon" title="公告详情" />
         <ScrollView>
           <View style={styles.noticecon}>
             <WebView
