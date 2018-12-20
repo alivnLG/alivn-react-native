@@ -185,7 +185,7 @@ class My extends Component {
               source={require("../Resources/images/right.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.linkItem} onPress={Actions.imageShow}>
+          {/* <TouchableOpacity style={styles.linkItem} onPress={Actions.imageShow}>
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/update.png")}
@@ -195,7 +195,7 @@ class My extends Component {
               style={styles.linkItemIcon}
               source={require("../Resources/images/right.png")}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           style={styles.logOut}

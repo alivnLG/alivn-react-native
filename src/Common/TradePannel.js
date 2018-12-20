@@ -100,6 +100,14 @@ class TradePannel extends Component {
       data: this.data
     });
   }
+  _delPwd() {
+    if (this.state.data.length < 6) {
+      this.data.pop();
+    }
+    this.setState({
+      data: this.data
+    });
+  }
 
   render() {
     return (
@@ -244,6 +252,9 @@ class TradePannel extends Component {
                 </Text>
                 <TouchableOpacity
                   style={[styles.btnDel, { backgroundColor: "transparent" }]}
+                  onPress={() => {
+                    this._delPwd();
+                  }}
                 >
                   <Image
                     style={styles.del}
