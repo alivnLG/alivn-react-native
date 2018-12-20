@@ -4,6 +4,8 @@ import {
   Button,
   Text,
   StyleSheet,
+  TouchableOpacity,
+  Image
 } from "react-native";
 import Common from "../styles/Common";
 import Nav from "../Component/Nav";
@@ -13,7 +15,14 @@ class ImageShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: ["1", "2", "3"],
+      cards: [
+        require("../Resources/images/itemImage1.jpg"),
+        require("../Resources/images/itemImage2.jpg"),
+        require("../Resources/images/itemImage3.jpg"),
+        require("../Resources/images/itemImage4.jpg"),
+        require("../Resources/images/itemImage5.jpg"),
+        require("../Resources/images/itemImage6.jpg")
+      ],
       swipedAllCards: false,
       swipeDirection: "",
       cardIndex: 0
@@ -31,9 +40,7 @@ class ImageShow extends Component {
   renderCard = (card, index) => {
     return (
       <View style={styles.card}>
-        <Text style={styles.text}>
-          {card} - {index}
-        </Text>
+        <Image style={styles.itemImage} source={card} />
       </View>
     );
   };
@@ -69,14 +76,14 @@ class ImageShow extends Component {
           onTapCard={this.swipeLeft}
           cards={this.state.cards}
           cardIndex={this.state.cardIndex}
-          cardVerticalMargin={80}
+          cardVerticalMargin={Fit(80)}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
-          stackSize={3}
-          stackSeparation={15}
+          stackSize={Fit(3)}
+          stackSeparation={Fit(15)}
           overlayLabels={{
             bottom: {
-              title: "BLEAH",
+              title: "",
               style: {
                 label: {
                   backgroundColor: "black",
@@ -92,7 +99,7 @@ class ImageShow extends Component {
               }
             },
             left: {
-              title: "NOPE",
+              title: "",
               style: {
                 label: {
                   backgroundColor: "black",
@@ -104,13 +111,13 @@ class ImageShow extends Component {
                   flexDirection: "column",
                   alignItems: "flex-end",
                   justifyContent: "flex-start",
-                  marginTop: 30,
-                  marginLeft: -30
+                  marginTop: Fit(30),
+                  marginLeft: -Fit(30)
                 }
               }
             },
             right: {
-              title: "LIKE",
+              title: "",
               style: {
                 label: {
                   backgroundColor: "black",
@@ -122,13 +129,13 @@ class ImageShow extends Component {
                   flexDirection: "column",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
-                  marginTop: 30,
-                  marginLeft: 30
+                  marginTop: Fit(30),
+                  marginLeft: Fit(30)
                 }
               }
             },
             top: {
-              title: "SUPER LIKE",
+              title: "",
               style: {
                 label: {
                   backgroundColor: "black",
@@ -148,7 +155,15 @@ class ImageShow extends Component {
           animateCardOpacity
           swipeBackCard
         >
-          <Button onPress={() => this.swiper.swipeBack()} title="返回" />
+          <TouchableOpacity
+            style={styles.imageTab}
+            onPress={() => this.swiper.swipeBack()}
+          >
+            <Image
+              style={styles.loop}
+              source={require("../Resources/images/loop.png")}
+            />
+          </TouchableOpacity>
         </Swiper>
       </View>
     );
@@ -157,23 +172,38 @@ class ImageShow extends Component {
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
-    borderRadius: 4,
-    borderWidth: 2,
+    height: SCREEN_HEIGHT - Fit(64) - Fit(110) - STATUSBAR_HEIGHT,
+    borderRadius: Fit(4),
+    borderWidth: Fit(2),
     borderColor: "#E8E8E8",
     justifyContent: "center",
     backgroundColor: "white"
   },
+  itemImage: {
+    height: SCREEN_HEIGHT - Fit(64) - Fit(110) - STATUSBAR_HEIGHT
+  },
   text: {
     textAlign: "center",
-    fontSize: 50,
+    fontSize: Fit(50),
     backgroundColor: "transparent"
   },
   done: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: Fit(30),
     color: "white",
     backgroundColor: "transparent"
+  },
+  imageTab: {
+    position: "absolute",
+    top: Fit(10),
+    left: "50%",
+    marginLeft: -Fit(30),
+    width: Fit(60),
+    height: Fit(60)
+  },
+  loop: {
+    width: Fit(60),
+    height: Fit(60)
   }
 });
 module.exports = ImageShow;
