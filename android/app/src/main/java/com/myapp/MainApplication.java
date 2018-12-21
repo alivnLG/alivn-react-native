@@ -35,7 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush("cVeFZKnKofchQdSBhuDhAfhGmQES4ksvOXqog", getApplicationContext(), BuildConfig.DEBUG,"http://39.108.130.194:3000/"),
+            new CodePush("EHbT2FFsBWiETGu7AotLi0iWOO0h4ksvOXqog", getApplicationContext(), BuildConfig.DEBUG,"http://39.108.130.194:3000/"),
             // new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
             new PickerViewPackage(),
             new RCTTorchPackage(),
