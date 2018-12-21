@@ -3,6 +3,7 @@ package com.myapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.beefe.picker.PickerViewPackage;
 import com.cubicphuse.RCTTorch.RCTTorchPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -19,6 +20,12 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+        @Override
+        protected String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
+        }
+    
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -28,6 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CodePush("cVeFZKnKofchQdSBhuDhAfhGmQES4ksvOXqog", getApplicationContext(), BuildConfig.DEBUG,"http://39.108.130.194:3000/"),
+            // new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
             new PickerViewPackage(),
             new RCTTorchPackage(),
             new RCTCameraPackage(),
