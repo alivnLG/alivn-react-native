@@ -9,6 +9,7 @@ import {
   ScrollView
 } from "react-native";
 import Common from "../styles/Common";
+import Update from "../Common/Update";
 class My extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,6 @@ class My extends Component {
       this._getData();
     });
   }
-
   _getData() {
     Axios.get("/users/info").then(res => {
       this.setState({
@@ -174,7 +174,12 @@ class My extends Component {
               source={require("../Resources/images/right.png")}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.linkItem}>
+          <TouchableOpacity
+            style={styles.linkItem}
+            onPress={() => {
+              Update._checkupDate();
+            }}
+          >
             <Image
               style={styles.linkItemIcon}
               source={require("../Resources/images/update.png")}
