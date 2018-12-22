@@ -9,7 +9,6 @@ import {
   ScrollView
 } from "react-native";
 import Common from "../styles/Common";
-import Update from "../Common/Update";
 class My extends Component {
   constructor(props) {
     super(props);

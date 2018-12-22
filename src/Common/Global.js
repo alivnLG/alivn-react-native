@@ -14,6 +14,8 @@ import Axios from "./Axios";
 import Store from "./Store";
 // TradePannel弹框
 import TradePannel from "./TradePannel";
+// 热更新APP
+import Update from "./Update";
 // Alert弹框
 import Alert from "./Alert";
 //Confirm弹窗
@@ -48,6 +50,8 @@ global.Axios = Axios;
 global.Store = Store;
 //TradePannel弹窗
 global.TradePannel = TradePannel;
+//热更新APP
+global.Update = Update;
 //Alert弹窗
 global.Alert = Alert;
 //Confirm弹窗

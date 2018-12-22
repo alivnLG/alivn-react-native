@@ -13,6 +13,7 @@ export default class App extends Component<{}> {
         />
         <Alert />
         <Confirm />
+        <Update />
         <TradePannel />
         <Router />
       </View>

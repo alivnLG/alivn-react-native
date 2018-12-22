@@ -83,6 +83,8 @@ const onBackPress = () => {
   return true;
 };
 
+Update._checkupDate("auto");
+
 const userinfo = Store.getItem("userinfo");
 const router = (...props) => (
   <Router

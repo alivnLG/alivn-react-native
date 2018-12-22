@@ -16,11 +16,44 @@ let self = null;
 class Update extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      progress: ""
+    };
+    self = this;
+  }
+  //立即更新
+  static _upDate() {
+    codePush.sync(
+      {},
+      status => {
+        switch (status) {
+          case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+            console.log("DOWNLOADING_PACKAGE");
+            break;
+          case codePush.SyncStatus.INSTALLING_UPDATE:
+            console.log(" INSTALLING_UPDATE");
+            Confirm.confirm({
+              icon: "success",
+              msg: "更新成功！",
+              okTxt: "立即重启",
+              onOk: () => {
+                codePush.restartApp();
+              }
+            });
+            break;
+        }
+      },
+      progress => {
+        self.setState({
+          progress: (progress.receivedBytes / progress.totalBytes) * 100 + "%"
+        });
+      }
+    );
   }
   //检查更新
-  static _checkupDate() {
+  static _checkupDate(type) {
     codePush.checkForUpdate().then(update => {
-      if (!update) {
+      if (!update && type !== "auto") {
         Alert.alert({
           icon: "success",
           msg: "APP已是最新版本"
@@ -36,30 +69,52 @@ class Update extends Component {
             }
           });
         } else {
-          codePush.sync(
-            {},
-            status => {
-              switch (status) {
-                case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-                  console.log("DOWNLOADING_PACKAGE");
-                  break;
-                case codePush.SyncStatus.INSTALLING_UPDATE:
-                  console.log(" INSTALLING_UPDATE");
-                  break;
-              }
-            },
-            progress => {
-              console.log(
-                progress.receivedBytes +
-                  " of " +
-                  progress.totalBytes +
-                  " received."
-              );
+          Confirm.confirm({
+            icon: "info",
+            msg: "发现新版本" + update.label,
+            desc: update.description,
+            okTxt: "立即更新",
+            onOk: () => {
+              this._upDate();
             }
-          );
+          });
         }
       }
     });
   }
+  render() {
+    return null;
+  }
 }
+const styles = StyleSheet.create({
+  mask: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row"
+  },
+  showView: {
+    paddingTop: Fit(20),
+    paddingBottom: Fit(20),
+    paddingLeft: Fit(30),
+    paddingRight: Fit(30),
+    borderRadius: 4,
+    backgroundColor: "#25c063",
+
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  iconImg: {
+    width: Fit(42),
+    height: Fit(42)
+  },
+  alertMsg: {
+    color: "#fff"
+  }
+});
 module.exports = Update;

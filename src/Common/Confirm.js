@@ -41,6 +41,7 @@ class Confirm extends Component {
       msg: opt.msg,
       cancelTxt: opt.cancelTxt ? opt.cancelTxt : "取消",
       okTxt: opt.okTxt ? opt.okTxt : "确定",
+      desc:opt.desc?opt.desc:null,
       zIndex: 6
     });
     self._onCancel = opt.onCancel;
@@ -106,6 +107,7 @@ class Confirm extends Component {
             <Image style={styles.iconImg} source={this.Icon[this.state.icon]} />
             <View style={styles.confirmMsg}>
               <Text style={styles.alertMsg}>{this.state.msg}</Text>
+              <Text style={styles.alertMsg}>{this.state.desc}</Text>
             </View>
           </View>
 
