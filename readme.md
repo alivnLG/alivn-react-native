@@ -18,4 +18,4 @@ code-push命令
 重命名一个部署: code-push deployment rename <appName> <currentDeploymentName> <newDeploymentName>
 
 线上正式环境打包V1.1
-code-push release-react bgaa_team-[android/ios]_v1.1 [android/ios] --deploymentName [Production/Staging] --description ""
+code-push release-react BGAA_[android/ios] [android/ios] --deploymentName [Production/Staging] --description ""

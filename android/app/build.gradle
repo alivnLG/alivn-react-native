@@ -109,6 +109,10 @@ android {
             abiFilters "armeabi","armeabi-v7a","armeabi-v8a", "x86","x86_64","mips","mips64"
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     splits {
         abi {
             reset()
