@@ -63,7 +63,6 @@ import TradeWarrant from "./Pages/TradeWarrant";
 import WithdrawInfo from "./Pages/WithdrawInfo";
 import NoticeList from "./Pages/NoticeList";
 import NoticeInfo from "./Pages/NoticeInfo";
-import ImageShow from "./Pages/ImageShow";
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
@@ -181,7 +180,6 @@ const router = (...props) => (
       <Scene component={WithdrawInfo} key="withdrawInfo" hideNavBar />
       <Scene component={NoticeList} key="noticeList" hideNavBar />
       <Scene component={NoticeInfo} key="noticeInfo" hideNavBar />
-      <Scene component={ImageShow} key="imageShow" hideNavBar />
     </Stack>
   </Router>
 );
