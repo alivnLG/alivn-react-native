@@ -96,7 +96,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "24.0.1"
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
     defaultConfig {
@@ -108,10 +108,6 @@ android {
         ndk {
             abiFilters "armeabi","armeabi-v7a","armeabi-v8a", "x86","x86_64","mips","mips64"
         }
-    }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
     }
     splits {
         abi {
